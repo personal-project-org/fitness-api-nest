@@ -3,9 +3,8 @@ version: '3.9'
 services:
   mariadb:
     image: mariadb
-    #Change port number
     ports:
-      - '7320'
+      - '7320:7320'
     container_name: 'mariadb'
     restart: always
     volumes:

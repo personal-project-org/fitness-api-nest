@@ -4,16 +4,16 @@ services:
   mariadb:
     image: mariadb
     ports:
-      - '7320:7320'
+      - '7320:3306'
     container_name: 'mariadb'
     restart: always
     volumes:
       - mariadb-data:/var/lib/mariadb/data
     environment:
-      - MARIADB_ROOT_PASSWORD=pwd
-      - MARIADB_DATABASE=mariadb
-      - MARIADB_USER=user
-      - MARIADB_PASSWORD=password
+      MARIADB_ROOT_PASSWORD: pwd
+      MARIADB_DATABASE: mariadb
+      MARIADB_USER: user
+      MARIADB_PASSWORD: password
 
 #What is the point of doing this?
 volumes:

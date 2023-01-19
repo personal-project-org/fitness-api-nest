@@ -1,0 +1,21 @@
+version: '3.9'
+
+services:
+  mariadb:
+    image: mariadb
+    #Change port number
+    ports:
+      - '7320'
+    container_name: 'mariadb'
+    restart: always
+    volumes:
+      - mariadb-data:/var/lib/mariadb/data
+    environment:
+      - MARIADB_ROOT_PASSWORD=pwd
+      - MARIADB_DATABASE=mariadb
+      - MARIADB_USER=user
+      - MARIADB_PASSWORD=password
+
+#What is the point of doing this?
+volumes:
+  mariadb-data:

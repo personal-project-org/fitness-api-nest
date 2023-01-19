@@ -9,16 +9,17 @@
     "prebuild": "rimraf dist",
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
-    "start": "nest start",
-    "start:dev": "nest start --watch",
-    "start:debug": "nest start --debug --watch",
+    "start": "nest start:dev",
+    "start:dev": "npm run db:shutdown && npm run db:up && sleep 1 && nest start --watch --debug",
     "start:prod": "node dist/main",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "jest --config ./test/jest-e2e.json"
+    "test:e2e": "jest --config ./test/jest-e2e.json",
+    "db:shutdown": "docker-compose -f docker-compose.yml down",
+    "db:up": "docker-compose -f docker-compose.yml up -d"
   },
   "dependencies": {
     "@nestjs/common": "^9.0.0",

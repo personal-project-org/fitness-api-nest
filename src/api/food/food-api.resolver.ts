@@ -13,22 +13,22 @@ export class FoodResolver {
     private readonly queryBus: QueryBus,
   ) {}
 
-  @Mutation((_returns) => FoodObjectType, {
-    name: 'addFood',
-    description: 'Logs a new food.',
-  })
-  async addFood(@Args('input') input: FoodAddInput): Promise<FoodObjectType> {
-    const result = await this.commandBus.execute<
-      FoodAddCommand,
-      Result<Food, SurveyPatchErrorResponse>
-    >(
-      new FoodAddCommand(
-        input.name,
-        input.calories,
-        input.protein,
-        input.carbs || null,
-        input.fats || null,
-      ),
-    );
-  }
+  // @Mutation((_returns) => FoodObjectType, {
+  //   name: 'addFood',
+  //   description: 'Logs a new food.',
+  // })
+  // async addFood(@Args('input') input: FoodAddInput): Promise<FoodObjectType> {
+  //   const result = await this.commandBus.execute<
+  //     FoodAddCommand,
+  //     Result<Food, SurveyPatchErrorResponse>
+  //   >(
+  //     new FoodAddCommand(
+  //       input.name,
+  //       input.calories,
+  //       input.protein,
+  //       input.carbs || null,
+  //       input.fats || null,
+  //     ),
+  //   );
+  // }
 }

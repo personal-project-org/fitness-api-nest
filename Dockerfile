@@ -9,8 +9,8 @@ COPY tsconfig.build.json .
 COPY prisma/ prisma/
 
 #RUN yarn install --frozen-lockfile
-RUN npm install
-RUN npm ci
+# RUN npm install
+RUN npm ci --legacy-peer-deps
 
 COPY src/ src/
 
@@ -18,7 +18,6 @@ RUN npm run build
 
 FROM builder as builder_prod
 COPY --from=builder /workdir/package.json package.json
-COPY --from=builder /workdir/yarn.lock yarn.lock
 COPY --from=builder /workdir/prisma prisma
 RUN rm -rf node_modules
 RUN yarn install --production
@@ -31,7 +30,6 @@ COPY --from=builder /workdir/package.json package.json
 COPY --from=builder /workdir/package-lock.json package-lock.json
 COPY --from=builder /workdir/src src
 COPY --from=builder /workdir/prisma prisma
-COPY --from=builder /workdir/docs docs
 
 EXPOSE 3306
 

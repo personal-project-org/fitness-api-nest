@@ -9,3 +9,13 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model Food {
+  id        String @id @default(uuid())
+  name      String
+  calories  String
+  protein   String
+  carbs     String
+  fats      String
+
+}

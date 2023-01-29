@@ -1,8 +1,10 @@
+import { Result } from '@badrap/result'
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { FoodAddInput } from './models/food-add.input';
 import { FoodObjectType } from './models/food.object-type';
 import { FoodAddCommand } from 'src/use-case/food/add/food-add.command';
 import { Food } from 'src/core/food/food.entity';
+import { CommandBus, QueryBus } from '@nestjs/cqrs';
 
 @Resolver((_of) => FoodObjectType)
 export class FoodResolver {

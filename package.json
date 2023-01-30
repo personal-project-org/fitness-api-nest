@@ -6,6 +6,7 @@
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
+    "start:bad": "nest start --watch --debug",
     "prebuild": "rimraf dist",
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
@@ -22,7 +23,9 @@
     "db:up": "docker-compose -f docker-compose.yml up -d"
   },
   "dependencies": {
+    "@apollo/server": "^4.3.2",
     "@badrap/result": "^0.2.13",
+    "@nestjs/apollo": "^10.1.7",
     "@nestjs/axios": "^1.0.1",
     "@nestjs/common": "9.2.1",
     "@nestjs/config": "^2.2.0",
@@ -35,9 +38,12 @@
     "@prisma/client": "^4.9.0",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.0",
+    "graphql-type-json": "^0.3.2",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
-    "rxjs": "^7.2.0"
+    "rxjs": "^7.2.0",
+    "sleep.cmd": "^2.0.21",
+    "swagger-ui-express": "^4.6.0"
   },
   "devDependencies": {
     "@nestjs/cli": "^9.0.0",

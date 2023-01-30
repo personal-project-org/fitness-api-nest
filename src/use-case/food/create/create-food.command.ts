@@ -1,6 +1,6 @@
 import { FoodMutationCommand } from '../shared/food-mutation.command';
 
-export class FoodAddCommand extends FoodMutationCommand {
+export class CreateFoodCommand extends FoodMutationCommand {
   constructor(
     public readonly name: string,
     public readonly calories: string,

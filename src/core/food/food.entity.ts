@@ -41,6 +41,9 @@ export class Food {
   public get calories(): string {
     return this._calories;
   }
+  public get protein(): string {
+    return this._protein;
+  }
 
   public get carbs(): string {
     return this._carbs;

@@ -20,3 +20,5 @@ export interface FoodCreateRequest {
 }
 
 export abstract class FoodRepositoryErrorResponse extends Error {}
+
+export class UnknownError extends FoodRepositoryErrorResponse {}

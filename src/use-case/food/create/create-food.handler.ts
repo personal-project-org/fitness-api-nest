@@ -11,6 +11,7 @@ export class CreateFoodHandler
 
     async execute(command: CreateFoodCommand): Promise<any> {
         //Should implement some sort of thing to prevent duplicates
+
         const foodCreateResult = await this.foodRepository.create(
             {
                 name : command.name,
@@ -20,6 +21,8 @@ export class CreateFoodHandler
                 fats: command.fats
             } as FoodCreateRequest
         )
+
+        console.log(JSON.stringify(foodCreateResult,null,2))
 
         if(foodCreateResult.isErr){
             return Result.err(new RepositoryCreationError())

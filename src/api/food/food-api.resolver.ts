@@ -1,12 +1,12 @@
 import { Result } from '@badrap/result';
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
-import { CreateFoodInput } from './models/create.food-input';
-import { FoodObjectType } from './models/food.object-type';
-import { CreateFoodCommand } from 'src/use-case/food/create/create-food.command';
-import { Food } from 'src/core/food/food.entity';
+import { CreateFoodInput } from './entities/gql-models/create.food-input';
+import { FoodObjectType } from './entities/gql-models/food.object-type';
+import { CreateFoodCommand } from 'src/api/food/use-cases/create/create-food.command';
+import { Food } from 'src/api/food/entities/local-model/food.entity';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
-import { FoodCreateErrorResponse } from 'src/use-case/food/create/create-food.handler';
-import { mapDomainEntityToGqlObjectType } from './models/mapper';
+import { FoodCreateErrorResponse } from 'src/api/food/use-cases/create/create-food.handler';
+import { mapDomainEntityToGqlObjectType } from './entities/gql-models/mapper';
 import { InternalServerErrorException } from '@nestjs/common';
 
 @Resolver((_of) => FoodObjectType)
@@ -16,7 +16,6 @@ export class FoodResolver {
     private readonly queryBus: QueryBus,
   ) {}
 
-  
   @Query(() => FoodObjectType)
   sayHello(): string {
     return 'Hello World!';
@@ -26,7 +25,9 @@ export class FoodResolver {
     name: 'createFood',
     description: 'Logs a new food.',
   })
-  async createFood(@Args('input') input: CreateFoodInput): Promise<FoodObjectType> {
+  async createFood(
+    @Args('input') input: CreateFoodInput,
+  ): Promise<FoodObjectType> {
     const result = await this.commandBus.execute<
       CreateFoodCommand,
       Result<Food, FoodCreateErrorResponse>
@@ -40,9 +41,13 @@ export class FoodResolver {
       ),
     );
 
-    return result.map(
-      (food) => mapDomainEntityToGqlObjectType(food),
-      (err) => { return new InternalServerErrorException(); }
-    ).unwrap()
+    return result
+      .map(
+        (food) => mapDomainEntityToGqlObjectType(food),
+        (err) => {
+          return new InternalServerErrorException();
+        },
+      )
+      .unwrap();
   }
 }

@@ -1,5 +1,5 @@
-import { checkRule } from '../shared/rule.check';
-import { StringCannotBeEmptyRule } from '../shared/rules/string-cannot-be.empty.rule';
+import { checkRule } from '../../../../infrastructure/entity-rules/rule.check';
+import { StringCannotBeEmptyRule } from '../../../../infrastructure/entity-rules/string-cannot-be.empty.rule';
 
 export class Food {
   private _id: string;

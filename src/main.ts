@@ -6,7 +6,10 @@ import { PrismaService } from './infrastructure/prisma/prisma.service';
 
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(AppModule,  {
+    logger: ['debug'],
+    cors: true,
+  });
 
   //Why:
   app.useGlobalPipes(new ValidationPipe({transform: true}));

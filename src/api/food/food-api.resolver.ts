@@ -1,4 +1,4 @@
-import { Result } from '@badrap/result'
+import { Result } from '@badrap/result';
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { CreateFoodInput } from './models/create.food-input';
 import { FoodObjectType } from './models/food.object-type';
@@ -15,6 +15,12 @@ export class FoodResolver {
     private readonly commandBus: CommandBus,
     private readonly queryBus: QueryBus,
   ) {}
+
+  
+  @Query(() => FoodObjectType)
+  sayHello(): string {
+    return 'Hello World!';
+  }
 
   @Mutation((_returns) => FoodObjectType, {
     name: 'createFood',

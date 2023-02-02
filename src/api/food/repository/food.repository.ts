@@ -1,18 +1,11 @@
 import { Result } from '@badrap/result';
 import { Injectable, Logger } from '@nestjs/common';
-import { Food } from 'src/core/food/food.entity';
-import {
-  FoodCreateRequest,
-  FoodRepository,
-  FoodRepositoryErrorResponse,
-  InvalidState,
-  UnknownError,
-} from 'src/core/food/food.repository';
-import { PrismaService } from '../../prisma.service';
+import { Food } from 'src/api/food/entities/local-model/food.entity';
+import { PrismaService } from '../../../infrastructure/prisma/prisma.service';
 import { mapDbEntityToDomainEntity } from './mapper';
 
 @Injectable()
-export class FoodRepositoryImpl implements FoodRepository {
+export class FoodRepository {
   //Why:
   private readonly logger = new Logger(FoodRepository.name);
 
@@ -22,7 +15,6 @@ export class FoodRepositoryImpl implements FoodRepository {
     req: FoodCreateRequest,
   ): Promise<Result<Food, FoodRepositoryErrorResponse>> {
     try {
-      //TODO: Create works, but there's still an error
       const entity = await this.prisma.food.create({
         data: req,
       });
@@ -41,3 +33,17 @@ export class FoodRepositoryImpl implements FoodRepository {
     throw new Error('Method not implemented.');
   }
 }
+
+export interface FoodCreateRequest {
+  name: string;
+  calories: string;
+  protein: string;
+  carbs: string;
+  fats: string;
+}
+
+export abstract class FoodRepositoryErrorResponse extends Error {}
+
+export class InvalidState extends FoodRepositoryErrorResponse {}
+
+export class UnknownError extends FoodRepositoryErrorResponse {}

@@ -1,4 +1,4 @@
-import { IRule } from '../rule.check';
+import { IRule } from './rule.check';
 
 export class StringCannotBeEmptyRule implements IRule {
   constructor(

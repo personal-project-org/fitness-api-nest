@@ -15,10 +15,10 @@ export class FoodRepositoryImpl implements FoodRepository {
 
     async create(req: FoodCreateRequest): Promise<Result<Food, FoodRepositoryErrorResponse>> {
         try {
-            //TODO: This isn't do anything, DB Connection issue?
+            //TODO: Create works, but there's still an error
             const entity = await this.prisma.food.create({
                 data:req
-            })
+            });
 
             if(entity) {
                 Result.ok(mapDbEntityToDomainEntity(entity))

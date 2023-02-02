@@ -12,6 +12,7 @@ export class CreateFoodHandler
     async execute(command: CreateFoodCommand): Promise<any> {
         //Should implement some sort of thing to prevent duplicates
 
+    //TODO: Food Request is working. The food is being created but the result is not outputting anything
         const foodCreateResult = await this.foodRepository.create(
             {
                 name : command.name,
@@ -24,13 +25,16 @@ export class CreateFoodHandler
 
         console.log(JSON.stringify(foodCreateResult,null,2))
 
-        if(foodCreateResult.isErr){
-            return Result.err(new RepositoryCreationError())
-        }
+        // if(foodCreateResult.isErr){
+        //     return Result.err(new RepositoryCreationError())
+        // }
 
-        const createdFoodWithinRepo = foodCreateResult.unwrap()
+        // const createdFoodWithinRepo = foodCreateResult.unwrap()
 
-        return createdFoodWithinRepo;
+        return foodCreateResult.map(
+            (createdFood) => createdFood,
+            () => new RepositoryCreationError
+        );
     }
     }
 

@@ -1,20 +1,25 @@
 version: '3.9'
 
 services:
-  mariadb:
-    image: mariadb
+  db:
+    image: postgres
     ports:
-      - '7320:3306'
-    container_name: 'mariadb'
+      - '4444:5432'
+    container_name: 'postgres'
     restart: always
     volumes:
-      - mariadb-data:/var/lib/mariadb/data
+      - db:/var/lib/postgresql/data
     environment:
-      MARIADB_ROOT_PASSWORD: pwd
-      MARIADB_DATABASE: mariadb
-      MARIADB_USER: user
-      MARIADB_PASSWORD: password
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=fitness-api-db
 
 #What is the point of doing this?
 volumes:
-  mariadb-data:
+  db:
+    driver: local
+
+networks:
+  proxy:
+    driver: bridge
+    name: proxy

@@ -23,4 +23,4 @@ jobs:
           cache: 'npm'
       - name: Start Api
         run: npm ci
-        run: npm run start:bad
+        run: npm start:bad

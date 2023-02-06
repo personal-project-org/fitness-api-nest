@@ -1,0 +1,26 @@
+name: CI
+
+on:
+  pull_request:
+    types: [opened,synchronize,reopened,closed]
+  push:
+    branches:
+      - main
+
+jobs:
+  dev-deploy:
+    name: Dev-Deploy
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [12.x,14.x,16.x]
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+      - name: Start Api
+        run: npm ci
+        run: npm run start:bad

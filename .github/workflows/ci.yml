@@ -5,7 +5,7 @@ on:
   pull_request:
     types: [opened, synchronize, reopened, closed]
 jobs:
-  sbuild:
+  dev-deploy:
     runs-on: ubuntu-latest  
     strategy:  
       matrix:  

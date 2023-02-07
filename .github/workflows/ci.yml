@@ -11,16 +11,13 @@ jobs:
   dev-deploy:
     name: Dev-Deploy
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [12.x, 14.x, 16.x]
     steps:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v2
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: '16'
           cache: 'npm'
       - name: Clean Install
         run: npm ci --legacy-peer-deps

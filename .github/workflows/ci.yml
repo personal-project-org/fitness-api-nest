@@ -24,3 +24,4 @@ jobs:
       - name: Start Api
         run: npm ci
         run: npm start:bad
+

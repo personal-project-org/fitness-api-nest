@@ -2,25 +2,26 @@ name: CI
 
 on:
   pull_request:
-    types: [opened,synchronize,reopened,closed]
+    types: [opened, synchronize, reopened, closed]
   push:
     branches:
       - main
+  workflow_dispatch
 
 jobs:
   dev-deploy:
     name: Dev-Deploy
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [12.x,14.x,16.x]
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout
+        uses: actions/checkout@v2
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v2
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: '16'
           cache: 'npm'
-      - name: Start Api
-        run: npm ci
-        run: npm run start:bad
+      - name: Clean Install
+        run: npm ci --legacy-peer-deps
+      # TODO: Tests can be ran within the workflow, but not the API itself 
+      # - name: Start Api
+      #   run: npm run start:bad

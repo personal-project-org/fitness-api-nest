@@ -22,4 +22,4 @@ jobs:
       - name: Clean Install
         run: npm ci --legacy-peer-deps
       - name: Start Api
-        run: npm start:bad
+        run: npm run start:bad

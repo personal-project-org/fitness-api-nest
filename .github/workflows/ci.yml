@@ -23,6 +23,6 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
       - name: Clean Install
-        run: npm ci
+        run: npm ci --legacy-peer-deps
       - name: Start Api
         run: npm start:bad

@@ -1,5 +1,5 @@
 import { IQuery, IQueryHandler, QueryHandler } from '@nestjs/cqrs';
-import { FoodRepository } from '../../repository/food.repository';
+import { FoodRepository } from '../../../repository/food.repository';
 import { GetAllFoodCommand } from './get-all.command';
 
 @QueryHandler(GetAllFoodCommand)

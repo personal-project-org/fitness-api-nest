@@ -2,15 +2,15 @@ import { Result } from '@badrap/result';
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { CreateFoodInput } from './entities/gql-models/create.food-input';
 import { FoodObjectType } from './entities/gql-models/food.object-type';
-import { CreateFoodCommand } from 'src/api/food/use-cases/create/create-food.command';
+import { CreateFoodCommand } from 'src/api/food/use-cases/food/create/create-food.command';
 import { Food } from 'src/api/food/entities/local-model/food.entity';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
-import { FoodCreateErrorResponse } from 'src/api/food/use-cases/create/create-food.handler';
+import { FoodCreateErrorResponse } from 'src/api/food/use-cases/food/create/create-food.handler';
 import { mapDomainEntityToGqlObjectType } from './entities/gql-models/mapper';
 import { InternalServerErrorException } from '@nestjs/common';
-import { DeleteFoodCommand } from './use-cases/delete/delete-food.command';
-import { FoodDeleteErrorResponse } from './use-cases/delete/delete-food.handler';
-import { GetAllFoodCommand } from './use-cases/get-all-foods/get-all.command';
+import { DeleteFoodCommand } from './use-cases/food/delete/delete-food.command';
+import { FoodDeleteErrorResponse } from './use-cases/food/delete/delete-food.handler';
+import { GetAllFoodCommand } from './use-cases/food/get-all-foods/get-all.command';
 import { DeleteFoodInput } from './entities/gql-models/delete.food-input';
 
 @Resolver((_of) => FoodObjectType)

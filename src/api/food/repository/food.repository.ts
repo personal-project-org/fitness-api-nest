@@ -29,8 +29,44 @@ export class FoodRepository {
       return Result.err(new UnknownError());
     }
   }
-  getAllFoods(): Promise<Result<Food, FoodRepositoryErrorResponse>> {
-    throw new Error('Method not implemented.');
+  async getAllFoods(): Promise<Result<Food[], FoodRepositoryErrorResponse>> {
+    try {
+      const entity = await this.prisma.food.findMany({});
+
+      if (entity) {
+        return Result.ok(
+          entity.map((single) => mapDbEntityToDomainEntity(single)),
+        );
+      }
+
+      return Result.err(new InvalidState());
+    } catch (e) {
+      this.logger.error(e);
+      return Result.err(new UnknownError());
+    }
+  }
+
+  async deleteMany(
+    ids: string[],
+  ): Promise<Result<Number, FoodRepositoryErrorResponse>> {
+    try {
+      const entity = await this.prisma.food.deleteMany({
+        where: {
+          id: {
+            in: ids,
+          },
+        },
+      });
+
+      if (entity) {
+        return Result.ok(entity.count);
+      }
+
+      return Result.err(new InvalidState());
+    } catch (e) {
+      this.logger.error(e);
+      return Result.err(new UnknownError());
+    }
   }
 }
 

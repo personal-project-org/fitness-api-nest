@@ -22,14 +22,6 @@ export class CreateFoodHandler implements ICommandHandler<CreateFoodCommand> {
       fats: command.fats,
     } as FoodCreateRequest);
 
-    console.log(JSON.stringify(foodCreateResult, null, 2));
-
-    // if(foodCreateResult.isErr){
-    //     return Result.err(new RepositoryCreationError())
-    // }
-
-    // const createdFoodWithinRepo = foodCreateResult.unwrap()
-
     return foodCreateResult.map(
       (createdFood) => createdFood,
       () => new RepositoryCreationError(),

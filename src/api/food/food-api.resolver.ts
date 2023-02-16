@@ -8,6 +8,10 @@ import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { FoodCreateErrorResponse } from 'src/api/food/use-cases/create/create-food.handler';
 import { mapDomainEntityToGqlObjectType } from './entities/gql-models/mapper';
 import { InternalServerErrorException } from '@nestjs/common';
+import { DeleteFoodCommand } from './use-cases/delete/delete-food.command';
+import { FoodDeleteErrorResponse } from './use-cases/delete/delete-food.handler';
+import { GetAllFoodCommand } from './use-cases/get-all-foods/get-all.command';
+import { DeleteFoodInput } from './entities/gql-models/delete.food-input';
 
 @Resolver((_of) => FoodObjectType)
 export class FoodResolver {
@@ -16,9 +20,20 @@ export class FoodResolver {
     private readonly queryBus: QueryBus,
   ) {}
 
-  @Query(() => FoodObjectType)
-  sayHello(): string {
-    return 'Hello World!';
+  @Query((_returns) => [FoodObjectType], {
+    name: 'getAllFoods',
+  })
+  async getAllFoods(): Promise<FoodObjectType[]> {
+    const result = await this.queryBus.execute<
+      GetAllFoodCommand,
+      Result<Food[], FoodDeleteErrorResponse>
+    >(new GetAllFoodCommand());
+
+    return result
+      .map((foodArray) => {
+        return foodArray.map((food) => mapDomainEntityToGqlObjectType(food));
+      })
+      .unwrap();
   }
 
   @Mutation((_returns) => FoodObjectType, {
@@ -48,6 +63,23 @@ export class FoodResolver {
           return new InternalServerErrorException();
         },
       )
+      .unwrap();
+  }
+
+  @Mutation((_returns) => Number, {
+    name: 'deleteFoods',
+    description: 'Removes foods given an array of ids.',
+  })
+  async deleteFoods(@Args('input') input: DeleteFoodInput): Promise<any> {
+    const result = await this.commandBus.execute<
+      DeleteFoodCommand,
+      Result<Number, FoodDeleteErrorResponse>
+    >(new DeleteFoodCommand(input.ids));
+
+    return result
+      .map((food) => {
+        return food > 0 ? food : new InternalServerErrorException();
+      })
       .unwrap();
   }
 }

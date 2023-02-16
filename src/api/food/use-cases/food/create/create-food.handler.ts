@@ -11,9 +11,6 @@ export class CreateFoodHandler implements ICommandHandler<CreateFoodCommand> {
   constructor(private readonly foodRepository: FoodRepository) {}
 
   async execute(command: CreateFoodCommand): Promise<any> {
-    //Should implement some sort of thing to prevent duplicates
-
-    //TODO: Food Request is working. The food is being created but the result is not outputting anything
     const foodCreateResult = await this.foodRepository.create({
       name: command.name,
       calories: command.calories,

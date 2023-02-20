@@ -1,4 +1,4 @@
-import { FoodMutationCommand } from '../../shared/food-mutation.command';
+import { FoodMutationCommand } from '../shared/food-mutation.command';
 
 export class CreateFoodCommand extends FoodMutationCommand {
   constructor(

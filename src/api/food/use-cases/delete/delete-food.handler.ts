@@ -1,5 +1,5 @@
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
-import { FoodRepository } from '../../../repository/food.repository';
+import { FoodRepository } from '../../repository/food.repository';
 import { DeleteFoodCommand } from './delete-food.command';
 
 @CommandHandler(DeleteFoodCommand)

@@ -1,4 +1,3 @@
-import { Result } from '@badrap/result';
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import {
   FoodCreateRequest,

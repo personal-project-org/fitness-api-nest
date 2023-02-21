@@ -18,13 +18,13 @@ export class CreateExerciseInput {
   @IsNotEmpty()
   body_part: string;
 
-  @Field()
+  @Field((_type) => [Number])
   @IsArray()
   @IsNotEmpty()
-  reps: Number[];
+  reps: number[];
 
-  @Field()
+  @Field((_type) => [Number])
   @IsArray()
   @IsNotEmpty()
-  weight: Number[];
+  weight: number[];
 }

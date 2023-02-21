@@ -10,8 +10,8 @@ export class ExerciseObjectType {
   type: string;
   @Field()
   body_part: string;
-  @Field()
-  reps: Number[];
-  @Field()
-  weight: Number[];
+  @Field((_type) => [Number])
+  reps: number[];
+  @Field((_type) => [Number])
+  weight: number[];
 }

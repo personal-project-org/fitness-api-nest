@@ -2,6 +2,15 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type ExerciseObjectType {
+  id: String!
+  name: String!
+  type: String!
+  body_part: String!
+  reps: [Float!]!
+  weight: [Float!]!
+}
+
 type FoodObjectType {
   id: String!
   name: String!
@@ -21,6 +30,9 @@ type Mutation {
 
   """Removes foods given an array of ids."""
   deleteFoods(input: DeleteFoodInput!): Float!
+
+  """Creates a new Exercise."""
+  createExercise(input: CreateExerciseInput!): ExerciseObjectType!
 }
 
 input CreateFoodInput {
@@ -33,4 +45,12 @@ input CreateFoodInput {
 
 input DeleteFoodInput {
   ids: [String!]!
+}
+
+input CreateExerciseInput {
+  name: String!
+  type: String!
+  body_part: String!
+  reps: [Float!]!
+  weight: [Float!]!
 }

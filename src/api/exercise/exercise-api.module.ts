@@ -7,4 +7,4 @@ import { ExerciseResolver } from './exercise-api.resolver';
   imports: [CqrsModule],
   providers: [ExerciseResolver, ConfigService],
 })
-export class FoodApiModule {}
+export class ExerciseApiModule {}

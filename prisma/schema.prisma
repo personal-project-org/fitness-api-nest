@@ -19,7 +19,7 @@ model Food {
   fats      String
 }
 
-model Exercises {
+model Exercise {
   id                String @id @default(uuid())
   name              String
   type              String

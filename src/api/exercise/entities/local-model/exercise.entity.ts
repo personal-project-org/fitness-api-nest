@@ -7,16 +7,16 @@ export class Exercise {
   private _name: string;
   private _type: string;
   private _body_part: string;
-  private _reps: Number[];
-  private _weight: Number[];
+  private _reps: number[];
+  private _weight: number[];
 
   constructor(
     id: string,
     name: string,
     type: string,
     body_part: string,
-    reps: Number[],
-    weight: Number[],
+    reps: number[],
+    weight: number[],
   ) {
     checkRule(new StringCannotBeEmptyRule('id', id));
     checkRule(new StringCannotBeEmptyRule('name', name));
@@ -45,10 +45,10 @@ export class Exercise {
   public get body_part(): string {
     return this._body_part;
   }
-  public get reps(): Number[] {
+  public get reps(): number[] {
     return this._reps;
   }
-  public get weight(): Number[] {
+  public get weight(): number[] {
     return this._weight;
   }
 }

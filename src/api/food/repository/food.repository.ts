@@ -6,7 +6,6 @@ import { mapDbEntityToDomainEntity } from './mapper';
 
 @Injectable()
 export class FoodRepository {
-  //Why:
   private readonly logger = new Logger(FoodRepository.name);
 
   constructor(private readonly prisma: PrismaService) {}

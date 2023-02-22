@@ -25,14 +25,25 @@ type Query {
 }
 
 type Mutation {
+  """Creates a new Exercise."""
+  createExercise(input: CreateExerciseInput!): ExerciseObjectType!
+
   """Logs a new food."""
   createFood(input: CreateFoodInput!): FoodObjectType!
 
   """Removes foods given an array of ids."""
   deleteFoods(input: DeleteFoodInput!): Float!
 
-  """Creates a new Exercise."""
-  createExercise(input: CreateExerciseInput!): ExerciseObjectType!
+  """Removes foods given an array of ids."""
+  updateFood(input: UpdateFoodInput!): FoodObjectType!
+}
+
+input CreateExerciseInput {
+  name: String!
+  type: String!
+  body_part: String!
+  reps: [Float!]!
+  weight: [Float!]!
 }
 
 input CreateFoodInput {
@@ -47,10 +58,11 @@ input DeleteFoodInput {
   ids: [String!]!
 }
 
-input CreateExerciseInput {
+input UpdateFoodInput {
+  id: String!
   name: String!
-  type: String!
-  body_part: String!
-  reps: [Float!]!
-  weight: [Float!]!
+  calories: String!
+  protein: String!
+  carbs: String!
+  fats: String!
 }

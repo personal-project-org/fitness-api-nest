@@ -7,10 +7,12 @@ import { CreateExerciseHandler } from 'src/api/exercise/use-cases/create/create-
 import { UpdateFoodHandler } from 'src/api/food/use-cases/update/update.handler';
 import { UpdateExerciseHandler } from 'src/api/exercise/use-cases/update/update-exercise.handler';
 import { GetAllExerciseHandler } from 'src/api/exercise/use-cases/get-all-exercises/get-all-exercise.handler';
+import { DeleteExerciseHandler } from 'src/api/exercise/use-cases/delete/delete-exercises.handler';
 
 @Module({
   imports: [InfrastructureModule],
   providers: [
+    DeleteExerciseHandler,
     GetAllExerciseHandler,
     UpdateExerciseHandler,
     CreateExerciseHandler,

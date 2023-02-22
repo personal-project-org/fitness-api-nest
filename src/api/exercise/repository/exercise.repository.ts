@@ -78,7 +78,7 @@ export class ExerciseRepository {
     id: string[],
   ): Promise<Result<Number, ExerciseRepositoryErrorResponse>> {
     try {
-      const deletedEntityCount = await this.prisma.food.deleteMany({
+      const deletedEntityCount = await this.prisma.exercise.deleteMany({
         where: {
           id: {
             in: id,

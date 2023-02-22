@@ -1,8 +1,8 @@
 import { Field, InputType } from '@nestjs/graphql';
-import { IsString, IsNotEmpty, IsArray } from 'class-validator';
+import { IsNotEmpty, IsArray } from 'class-validator';
 
 @InputType()
-export class CreateExerciseInput {
+export class DeleteExercisesInput {
   @Field((_type) => [String])
   @IsArray()
   @IsNotEmpty()

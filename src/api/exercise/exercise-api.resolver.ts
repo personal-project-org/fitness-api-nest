@@ -5,12 +5,13 @@ import { Args, Mutation, Resolver } from '@nestjs/graphql';
 import { CreateExerciseInput } from '../exercise/entities/gql-models/create.Exercise-input';
 import { CreateExerciseCommand } from '../exercise/use-cases/create/create-exercise.command';
 import { ExerciseCreateErrorResponse } from '../exercise/use-cases/create/create-Exercise.handler';
+import { DeleteExercisesInput } from './entities/gql-models/delete-many.exercise-input';
 import { ExerciseObjectType } from './entities/gql-models/exercise.object-type';
 import { mapDomainEntityToGqlObjectType } from './entities/gql-models/mapper';
 import { UpdateExerciseInput } from './entities/gql-models/update.exercise-input';
 import { Exercise } from './entities/local-model/exercise.entity';
-import { GetAllExerciseCommand } from './use-cases/get-all-exercises/get-all-exercise.command';
-import { GetAllExerciseErrorResponse } from './use-cases/get-all-exercises/get-all-exercise.handler';
+import { DeleteExerciseCommand } from './use-cases/delete/delete-exercises.command';
+import { ExerciseDeleteErrorResponse } from './use-cases/delete/delete-exercises.handler';
 import { UpdateExerciseCommand } from './use-cases/update/update-exercise.command';
 import { ExerciseUpdateErrorResponse } from './use-cases/update/update-exercise.handler';
 
@@ -41,6 +42,25 @@ export class ExerciseResolver {
   //     )
   //     .unwrap();
   // }
+
+  @Mutation((_returns) => Number, {
+    name: 'deleteExercises',
+    description: 'Removes many exercises given an array of ids.',
+  })
+  async deleteExercises(
+    @Args('input') input: DeleteExercisesInput,
+  ): Promise<any> {
+    const result = await this.commandBus.execute<
+      DeleteExerciseCommand,
+      Result<Number, ExerciseDeleteErrorResponse>
+    >(new DeleteExerciseCommand(input.ids));
+
+    return result
+      .map((Exercise) => {
+        return Exercise;
+      })
+      .unwrap();
+  }
 
   @Mutation((_returns) => ExerciseObjectType, {
     name: 'updateExercise',

@@ -25,6 +25,9 @@ type Query {
 }
 
 type Mutation {
+  """Removes many exercises given an array of ids."""
+  deleteExercises(input: DeleteExercisesInput!): Float!
+
   """Updates an exercise."""
   updateExercise(input: UpdateExerciseInput!): ExerciseObjectType!
 
@@ -39,6 +42,10 @@ type Mutation {
 
   """Removes foods given an array of ids."""
   updateFood(input: UpdateFoodInput!): FoodObjectType!
+}
+
+input DeleteExercisesInput {
+  ids: [String!]!
 }
 
 input UpdateExerciseInput {

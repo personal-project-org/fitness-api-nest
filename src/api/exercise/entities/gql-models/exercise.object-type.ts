@@ -1,4 +1,4 @@
-import { Field, ObjectType } from '@nestjs/graphql';
+import { Field, Int, ObjectType } from '@nestjs/graphql';
 
 @ObjectType()
 export class ExerciseObjectType {
@@ -10,8 +10,8 @@ export class ExerciseObjectType {
   type: string;
   @Field()
   body_part: string;
-  @Field((_type) => [Number])
+  @Field((_type) => [Int])
   reps: number[];
-  @Field((_type) => [Number])
+  @Field((_type) => [Int])
   weight: number[];
 }

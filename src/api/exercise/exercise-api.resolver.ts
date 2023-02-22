@@ -1,6 +1,6 @@
 import { Result } from '@badrap/result';
-import { InternalServerErrorException } from '@nestjs/common';
-import { CommandBus } from '@nestjs/cqrs';
+import { InternalServerErrorException, Query } from '@nestjs/common';
+import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { Args, Mutation, Resolver } from '@nestjs/graphql';
 import { CreateExerciseInput } from '../exercise/entities/gql-models/create.Exercise-input';
 import { CreateExerciseCommand } from '../exercise/use-cases/create/create-exercise.command';
@@ -16,30 +16,31 @@ import { ExerciseUpdateErrorResponse } from './use-cases/update/update-exercise.
 
 @Resolver((_of) => ExerciseObjectType)
 export class ExerciseResolver {
-  constructor(private readonly commandBus: CommandBus) {}
+  constructor(
+    private readonly commandBus: CommandBus,
+    private readonly queryBus: QueryBus,
+  ) {}
 
-  @Mutation((_returns) => [ExerciseObjectType], {
-    name: 'getAllExercise',
-    description: 'Returns all exercises.',
-  })
-  async getAllExercises(): Promise<ExerciseObjectType[]> {
-    const result = await this.commandBus.execute<
-      GetAllExerciseCommand,
-      Result<Exercise[], GetAllExerciseErrorResponse>
-    >(new GetAllExerciseCommand());
+  // @Query((_returns) => [ExerciseObjectType], { name: 'getAllExercises' })
+  // async getAllExercises(): Promise<ExerciseObjectType[]> {
+  //   const result = await this.queryBus.execute<
+  //     GetAllExerciseCommand,
+  //     Result<Exercise[], GetAllExerciseErrorResponse>
+  //   >(new GetAllExerciseCommand());
 
-    return result
-      .map(
-        (allExercises) =>
-          allExercises.map((exercise) =>
-            mapDomainEntityToGqlObjectType(exercise),
-          ),
-        (err) => {
-          return new InternalServerErrorException();
-        },
-      )
-      .unwrap();
-  }
+  //   return result
+  //     .map(
+  //       (allExercises) => {
+  //         return allExercises.map((exercise) =>
+  //           mapDomainEntityToGqlObjectType(exercise),
+  //         );
+  //       },
+  //       () => {
+  //         return new InternalServerErrorException();
+  //       },
+  //     )
+  //     .unwrap();
+  // }
 
   @Mutation((_returns) => ExerciseObjectType, {
     name: 'updateExercise',

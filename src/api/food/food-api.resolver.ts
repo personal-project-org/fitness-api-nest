@@ -14,6 +14,7 @@ import { GetAllFoodCommand } from './use-cases/get-all-foods/get-all.command';
 import { DeleteFoodInput } from './entities/gql-models/delete.food-input';
 import { UpdateFoodCommand } from './use-cases/update/update.command';
 import { UpdateFoodInput } from './entities/gql-models/update.food-input';
+import { GetAllFoodErrorResponse } from './use-cases/get-all-foods/get-all.handler';
 
 @Resolver((_of) => FoodObjectType)
 export class FoodResolver {
@@ -28,7 +29,7 @@ export class FoodResolver {
   async getAllFoods(): Promise<FoodObjectType[]> {
     const result = await this.queryBus.execute<
       GetAllFoodCommand,
-      Result<Food[], FoodDeleteErrorResponse>
+      Result<Food[], GetAllFoodErrorResponse>
     >(new GetAllFoodCommand());
 
     return result

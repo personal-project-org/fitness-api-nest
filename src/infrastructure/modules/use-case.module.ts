@@ -6,10 +6,12 @@ import { GetAllFoodHandler } from 'src/api/food/use-cases/get-all-foods/get-all.
 import { CreateExerciseHandler } from 'src/api/exercise/use-cases/create/create-exercise.handler';
 import { UpdateFoodHandler } from 'src/api/food/use-cases/update/update.handler';
 import { UpdateExerciseHandler } from 'src/api/exercise/use-cases/update/update-exercise.handler';
+import { GetAllExerciseHandler } from 'src/api/exercise/use-cases/get-all-exercises/get-all-exercise.handler';
 
 @Module({
   imports: [InfrastructureModule],
   providers: [
+    GetAllExerciseHandler,
     UpdateExerciseHandler,
     CreateExerciseHandler,
     UpdateFoodHandler,

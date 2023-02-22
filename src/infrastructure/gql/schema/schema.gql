@@ -7,8 +7,8 @@ type ExerciseObjectType {
   name: String!
   type: String!
   body_part: String!
-  reps: [Float!]!
-  weight: [Float!]!
+  reps: [Int!]!
+  weight: [Int!]!
 }
 
 type FoodObjectType {
@@ -25,9 +25,6 @@ type Query {
 }
 
 type Mutation {
-  """Returns all exercises."""
-  getAllExercise: [ExerciseObjectType!]!
-
   """Updates an exercise."""
   updateExercise(input: UpdateExerciseInput!): ExerciseObjectType!
 

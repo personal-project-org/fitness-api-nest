@@ -1,6 +1,6 @@
-import { ExerciseMutationCommand } from '../shared/exercise-mutation.command';
+import { ExerciseQueryCommand } from '../shared/exercise-query.command';
 
-export class GetAllExerciseCommand extends ExerciseMutationCommand {
+export class GetAllExerciseCommand extends ExerciseQueryCommand {
   constructor() {
     super();
   }

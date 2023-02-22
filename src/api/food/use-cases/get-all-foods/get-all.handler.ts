@@ -14,6 +14,6 @@ export class GetAllFoodHandler implements IQueryHandler<GetAllFoodCommand> {
   }
 }
 
-export abstract class RepositoryGetAllErrorResponse extends Error {}
+export abstract class GetAllFoodErrorResponse extends Error {}
 
-export class RepositoryGetAllError extends RepositoryGetAllErrorResponse {}
+export class RepositoryGetAllError extends GetAllFoodErrorResponse {}

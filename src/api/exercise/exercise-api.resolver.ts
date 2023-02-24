@@ -12,6 +12,8 @@ import { UpdateExerciseInput } from './entities/gql-models/update.exercise-input
 import { Exercise } from './entities/local-model/exercise.entity';
 import { DeleteExerciseCommand } from './use-cases/delete/delete-exercises.command';
 import { ExerciseDeleteErrorResponse } from './use-cases/delete/delete-exercises.handler';
+import { GetAllExerciseCommand } from './use-cases/get-all-exercises/get-all-exercise.command';
+import { GetAllExerciseErrorResponse } from './use-cases/get-all-exercises/get-all-exercise.handler';
 import { UpdateExerciseCommand } from './use-cases/update/update-exercise.command';
 import { ExerciseUpdateErrorResponse } from './use-cases/update/update-exercise.handler';
 

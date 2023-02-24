@@ -6,6 +6,7 @@
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
+    "deploy": "npm install && npm run build && npm run start:bad",
     "start:bad": "nest start --watch --debug",
     "prebuild": "rimraf dist",
     "build": "nest build",

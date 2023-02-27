@@ -2,6 +2,15 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type ExerciseObjectType {
+  id: String!
+  name: String!
+  type: String!
+  body_part: String!
+  reps: [Int!]!
+  weight: [Int!]!
+}
+
 type FoodObjectType {
   id: String!
   name: String!
@@ -16,11 +25,44 @@ type Query {
 }
 
 type Mutation {
+  """Removes many exercises given an array of ids."""
+  deleteExercises(input: DeleteExercisesInput!): Float!
+
+  """Updates an exercise."""
+  updateExercise(input: UpdateExerciseInput!): ExerciseObjectType!
+
+  """Creates a new exercise."""
+  createExercise(input: CreateExerciseInput!): ExerciseObjectType!
+
   """Logs a new food."""
   createFood(input: CreateFoodInput!): FoodObjectType!
 
   """Removes foods given an array of ids."""
   deleteFoods(input: DeleteFoodInput!): Float!
+
+  """Removes foods given an array of ids."""
+  updateFood(input: UpdateFoodInput!): FoodObjectType!
+}
+
+input DeleteExercisesInput {
+  ids: [String!]!
+}
+
+input UpdateExerciseInput {
+  id: String!
+  name: String!
+  type: String!
+  body_part: String!
+  reps: [Float!]!
+  weight: [Float!]!
+}
+
+input CreateExerciseInput {
+  name: String!
+  type: String!
+  body_part: String!
+  reps: [Float!]!
+  weight: [Float!]!
 }
 
 input CreateFoodInput {
@@ -33,4 +75,13 @@ input CreateFoodInput {
 
 input DeleteFoodInput {
   ids: [String!]!
+}
+
+input UpdateFoodInput {
+  id: String!
+  name: String!
+  calories: String!
+  protein: String!
+  carbs: String!
+  fats: String!
 }

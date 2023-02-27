@@ -6,7 +6,6 @@ import { mapDbEntityToDomainEntity } from './mapper';
 
 @Injectable()
 export class FoodRepository {
-  //Why:
   private readonly logger = new Logger(FoodRepository.name);
 
   constructor(private readonly prisma: PrismaService) {}
@@ -50,7 +49,7 @@ export class FoodRepository {
     ids: string[],
   ): Promise<Result<Number, FoodRepositoryErrorResponse>> {
     try {
-      const entity = await this.prisma.food.deleteMany({
+      const deletedEntityCount = await this.prisma.food.deleteMany({
         where: {
           id: {
             in: ids,
@@ -58,10 +57,36 @@ export class FoodRepository {
         },
       });
 
-      if (entity) {
-        return Result.ok(entity.count);
+      if (deletedEntityCount) {
+        return Result.ok(deletedEntityCount.count);
       }
 
+      return Result.err(new InvalidState());
+    } catch (e) {
+      this.logger.error(e);
+      return Result.err(new UnknownError());
+    }
+  }
+
+  async update(
+    foodUpdateRequestData: FoodUpdateRequestData,
+  ): Promise<Result<Food, FoodRepositoryErrorResponse>> {
+    try {
+      const newFood = (({ id, ...others }) => others)(
+        foodUpdateRequestData,
+      ) as Food;
+      const updatedEntity = await this.prisma.food.update({
+        where: {
+          id: foodUpdateRequestData.id,
+        },
+        data: {
+          ...newFood,
+        },
+      });
+
+      if (updatedEntity) {
+        return Result.ok(mapDbEntityToDomainEntity(updatedEntity));
+      }
       return Result.err(new InvalidState());
     } catch (e) {
       this.logger.error(e);
@@ -71,6 +96,15 @@ export class FoodRepository {
 }
 
 export interface FoodCreateRequest {
+  name: string;
+  calories: string;
+  protein: string;
+  carbs: string;
+  fats: string;
+}
+
+export interface FoodUpdateRequestData {
+  id: string;
   name: string;
   calories: string;
   protein: string;

@@ -12,6 +12,9 @@ import { DeleteFoodCommand } from './use-cases/delete/delete-food.command';
 import { FoodDeleteErrorResponse } from './use-cases/delete/delete-food.handler';
 import { GetAllFoodCommand } from './use-cases/get-all-foods/get-all.command';
 import { DeleteFoodInput } from './entities/gql-models/delete.food-input';
+import { UpdateFoodCommand } from './use-cases/update/update.command';
+import { UpdateFoodInput } from './entities/gql-models/update.food-input';
+import { GetAllFoodErrorResponse } from './use-cases/get-all-foods/get-all.handler';
 
 @Resolver((_of) => FoodObjectType)
 export class FoodResolver {
@@ -26,7 +29,7 @@ export class FoodResolver {
   async getAllFoods(): Promise<FoodObjectType[]> {
     const result = await this.queryBus.execute<
       GetAllFoodCommand,
-      Result<Food[], FoodDeleteErrorResponse>
+      Result<Food[], GetAllFoodErrorResponse>
     >(new GetAllFoodCommand());
 
     return result
@@ -78,7 +81,33 @@ export class FoodResolver {
 
     return result
       .map((food) => {
-        return food > 0 ? food : new InternalServerErrorException();
+        return food;
+      })
+      .unwrap();
+  }
+
+  @Mutation((_returns) => FoodObjectType, {
+    name: 'updateFood',
+    description: 'Removes foods given an array of ids.',
+  })
+  async updateFoods(@Args('input') input: UpdateFoodInput): Promise<any> {
+    const result = await this.commandBus.execute<
+      UpdateFoodCommand,
+      Result<Food>
+    >(
+      new UpdateFoodCommand(
+        input.id,
+        input.name,
+        input.calories,
+        input.protein,
+        input.carbs || null,
+        input.fats || null,
+      ),
+    );
+
+    return result
+      .map((food) => {
+        return food;
       })
       .unwrap();
   }

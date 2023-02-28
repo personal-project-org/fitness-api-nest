@@ -1,7 +1,7 @@
 import { Result } from '@badrap/result';
-import { InternalServerErrorException, Query } from '@nestjs/common';
+import { InternalServerErrorException } from '@nestjs/common';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
-import { Args, Mutation, Resolver } from '@nestjs/graphql';
+import { Args, Mutation, Resolver, Query } from '@nestjs/graphql';
 import { CreateExerciseInput } from '../exercise/entities/gql-models/create.Exercise-input';
 import { CreateExerciseCommand } from '../exercise/use-cases/create/create-exercise.command';
 import { ExerciseCreateErrorResponse } from '../exercise/use-cases/create/create-Exercise.handler';
@@ -24,26 +24,25 @@ export class ExerciseResolver {
     private readonly queryBus: QueryBus,
   ) {}
 
-  // @Query((_returns) => [ExerciseObjectType], { name: 'getAllExercises' })
-  // async getAllExercises(): Promise<ExerciseObjectType[]> {
-  //   const result = await this.queryBus.execute<
-  //     GetAllExerciseCommand,
-  //     Result<Exercise[], GetAllExerciseErrorResponse>
-  //   >(new GetAllExerciseCommand());
-
-  //   return result
-  //     .map(
-  //       (allExercises) => {
-  //         return allExercises.map((exercise) =>
-  //           mapDomainEntityToGqlObjectType(exercise),
-  //         );
-  //       },
-  //       () => {
-  //         return new InternalServerErrorException();
-  //       },
-  //     )
-  //     .unwrap();
-  // }
+  @Query((_returns) => [ExerciseObjectType], { name: 'getAllExercises' })
+  async getAllExercises(): Promise<ExerciseObjectType[]> {
+    const result = await this.queryBus.execute<
+      GetAllExerciseCommand,
+      Result<Exercise[], GetAllExerciseErrorResponse>
+    >(new GetAllExerciseCommand());
+    return result
+      .map(
+        (allExercises) => {
+          return allExercises.map((exercise) =>
+            mapDomainEntityToGqlObjectType(exercise),
+          );
+        },
+        () => {
+          return new InternalServerErrorException();
+        },
+      )
+      .unwrap();
+  }
 
   @Mutation((_returns) => Number, {
     name: 'deleteExercises',

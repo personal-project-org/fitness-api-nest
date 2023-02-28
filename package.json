@@ -7,7 +7,7 @@
   "license": "UNLICENSED",
   "scripts": {
     "deploy": "npm install && npm run build && npm run start:bad",
-    "start:bad": "nest start --watch --debug",
+    "start:debug": "nest start --watch --debug",
     "prebuild": "rimraf dist",
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",

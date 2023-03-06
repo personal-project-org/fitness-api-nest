@@ -4,59 +4,40 @@ services:
   db:
     image: postgres
     ports:
-      - '4444:4444'
+      - '4444:5432'
     container_name: 'postgres'
-    restart: always
-    volumes:
-      - db:/var/lib/postgresql/data
+    restart: unless-stopped
+    # volumes:
+    #   - db:/var/lib/postgresql/data
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
       - POSTGRES_DB=fitness-api-db
     networks:
       - proxy
-      - nestjs-network
-  dev:
-    container_name: nestjs_api_dev
-    image: nestjs-api-dev:1.0.0
-    build:
-      context: .
-      target: development
-      dockerfile: ./Dockerfile
-    command: npm run start:debug
-    ports:
-      - 3000:3000
-    networks:
-      - nestjs-network
-    volumes:
-      - .:/usr/src/app
-      - /usr/src/app/node_modules
-    restart: unless-stopped
-  prod:
-    container_name: nestjs_api_prod
-    image: nestjs-api-prod:1.0.0
-    build:
-      context: .
-      target: production
-      dockerfile: ./Dockerfile
-    # TODO: Should probably change later
-    command: npm run start:debug
-    ports:
-      - 3000:3000
-    networks:
-      - nestjs-network
-    volumes:
-      - .:/usr/src/app
-      - /usr/src/app/node_modules
-    restart: unless-stopped
 
-#What is the point of doing this?
+  # dev:
+  #   container_name: nestjs_api_dev
+  #   image: nestjs-api-dev:1.0.0
+  #   command: nest start --watch --debug
+  #   build:
+  #     context: .
+  #     target: development
+  #     dockerfile: ./Dockerfile
+  #   depends_on:
+  #     - db
+  #   ports:
+  #     - 3000:3000
+  #   networks:
+  #     - nestjs-network
+
 volumes:
   db:
-    driver: local
 
 networks:
+  # nestjs-network:
+  #   driver: bridge
+  #   name: nestjs-network
   proxy:
     driver: bridge
     name: proxy
-  nestjs-network:

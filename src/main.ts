@@ -5,6 +5,7 @@ import { ValidationPipe } from '@nestjs/common';
 import { PrismaService } from './infrastructure/prisma/prisma.service';
 
 async function bootstrap() {
+  require('dotenv').config();
   const app = await NestFactory.create(AppModule, {
     logger: ['debug'],
     cors: true,
@@ -25,8 +26,7 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('/', app, document);
 
-  // await app.listen(process.env.PORT || 3000);
-  await app.listen(8080);
+  await app.listen(process.env.PORT || 8080);
 }
 
 bootstrap();

@@ -10,7 +10,7 @@
     "node": ">=16.0.0"
   },
   "scripts": {
-    "deploy": "npm install && npm run build && npm run start:bad",
+    "deploy": "npm install --legacy-peer-deps && npm run build && npm run start:bad",
     "start:debug": "nest start --watch --debug",
     "prebuild": "rimraf dist",
     "build": "nest build",

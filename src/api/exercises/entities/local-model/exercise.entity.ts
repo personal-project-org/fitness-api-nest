@@ -1,4 +1,3 @@
-import { ArrayCannotBeEmptyRule } from 'src/infrastructure/entity-rules/array-cannot-be.empty.rule';
 import { checkRule } from 'src/infrastructure/entity-rules/rule.check';
 import { StringCannotBeEmptyRule } from 'src/infrastructure/entity-rules/string-cannot-be.empty.rule';
 

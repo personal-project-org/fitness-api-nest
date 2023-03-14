@@ -28,8 +28,8 @@ model Exercises {
 
 model Sets {
   id                String @id @default(uuid())
-  reps              String
-  weight            String
+  reps              Int
+  weight            Int
   date              DateTime
   exerciseId        String 
 }

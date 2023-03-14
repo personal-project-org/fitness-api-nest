@@ -5,9 +5,9 @@ import {
 } from '@nestjs/common';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { Args, Mutation, Resolver, Query } from '@nestjs/graphql';
-import { CreateExerciseInput } from '../exercise/entities/gql-models/create.exercise-input';
-import { CreateExerciseCommand } from '../exercise/use-cases/create/create-exercise.command';
-import { ExerciseCreateErrorResponse } from '../exercise/use-cases/create/create-exercise.handler';
+import { CreateExerciseInput } from './entities/gql-models/create.exercise-input';
+import { CreateExerciseCommand } from './use-cases/create/create-exercise.command';
+import { ExerciseCreateErrorResponse } from './use-cases/create/create-exercise.handler';
 import { DeleteExercisesInput } from './entities/gql-models/delete-many.exercise-input';
 import { ExerciseObjectType } from './entities/gql-models/exercise.object-type';
 import { mapDomainEntityToGqlObjectType } from './entities/gql-models/mapper';

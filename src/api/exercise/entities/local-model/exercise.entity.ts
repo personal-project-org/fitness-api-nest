@@ -7,30 +7,17 @@ export class Exercise {
   private _name: string;
   private _type: string;
   private _body_part: string;
-  private _reps: number[];
-  private _weight: number[];
 
-  constructor(
-    id: string,
-    name: string,
-    type: string,
-    body_part: string,
-    reps: number[],
-    weight: number[],
-  ) {
+  constructor(id: string, name: string, type: string, body_part: string) {
     checkRule(new StringCannotBeEmptyRule('id', id));
     checkRule(new StringCannotBeEmptyRule('name', name));
     checkRule(new StringCannotBeEmptyRule('type', type));
     checkRule(new StringCannotBeEmptyRule('body_part', body_part));
-    checkRule(new ArrayCannotBeEmptyRule('reps', reps));
-    checkRule(new ArrayCannotBeEmptyRule('weight', weight));
 
     this._id = id;
     this._name = name;
     this._type = type;
     this._body_part = body_part;
-    this._reps = reps;
-    this._weight = weight;
   }
 
   public get id(): string {
@@ -44,11 +31,5 @@ export class Exercise {
   }
   public get body_part(): string {
     return this._body_part;
-  }
-  public get reps(): number[] {
-    return this._reps;
-  }
-  public get weight(): number[] {
-    return this._weight;
   }
 }

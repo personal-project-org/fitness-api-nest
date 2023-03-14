@@ -7,8 +7,6 @@ type ExerciseObjectType {
   name: String!
   type: String!
   body_part: String!
-  reps: [Int!]!
-  weight: [Int!]!
 }
 
 type FoodObjectType {

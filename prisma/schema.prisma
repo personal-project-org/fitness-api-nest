@@ -19,13 +19,19 @@ model Food {
   fats      String
 }
 
-model Exercise {
+model Exercises {
   id                String @id @default(uuid())
   name              String
   type              String
   body_part         String
-  reps              Int[]
-  weight            Int[]
+}
+
+model Sets {
+  id                String @id @default(uuid())
+  reps              String
+  weight            String
+  date              DateTime
+  exerciseId        String 
 }
 
 model Accounts {
@@ -34,6 +40,6 @@ model Accounts {
   calories_goal         String
   protein_goal          String
   carbs_goal            String
-  fats_goal            String
+  fats_goal             String
 }
 

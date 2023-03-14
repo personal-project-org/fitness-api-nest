@@ -1,13 +1,6 @@
-import { Exercise as ExerciseItems } from '@prisma/client';
+import { Exercises as ExerciseItems } from '@prisma/client';
 import { Exercise } from '../entities/local-model/exercise.entity';
 
 export const mapDbEntityToDomainEntity = (entity: ExerciseItems): Exercise => {
-  return new Exercise(
-    entity.id,
-    entity.name,
-    entity.type,
-    entity.body_part,
-    entity.reps,
-    entity.weight,
-  );
+  return new Exercise(entity.id, entity.name, entity.type, entity.body_part);
 };

@@ -9,7 +9,5 @@ export const mapDomainEntityToGqlObjectType = (
     name: entity.name,
     type: entity.type,
     body_part: entity.body_part,
-    reps: entity.reps,
-    weight: entity.weight,
   };
 };

@@ -14,7 +14,7 @@ export class ExerciseRepository {
     req: ExerciseCreateRequest,
   ): Promise<Result<Exercise, ExerciseRepositoryErrorResponse>> {
     try {
-      const entity = await this.prisma.exercise.create({
+      const entity = await this.prisma.exercises.create({
         data: req,
       });
 
@@ -33,7 +33,7 @@ export class ExerciseRepository {
     Result<Exercise[], ExerciseRepositoryErrorResponse>
   > {
     try {
-      const entity = await this.prisma.exercise.findMany({});
+      const entity = await this.prisma.exercises.findMany({});
 
       if (entity) {
         return Result.ok(
@@ -49,15 +49,15 @@ export class ExerciseRepository {
   }
 
   async update(
-    exerciseUpdateRequestData: ExerciseUpdateRequestData,
+    exercisesUpdateRequestData: ExerciseUpdateRequestData,
   ): Promise<Result<Exercise, ExerciseRepositoryErrorResponse>> {
     try {
       const newExercise = (({ id, ...others }) => others)(
-        exerciseUpdateRequestData,
+        exercisesUpdateRequestData,
       ) as Exercise;
-      const updatedEntity = await this.prisma.exercise.update({
+      const updatedEntity = await this.prisma.exercises.update({
         where: {
-          id: exerciseUpdateRequestData.id,
+          id: exercisesUpdateRequestData.id,
         },
         data: {
           ...newExercise,
@@ -78,7 +78,7 @@ export class ExerciseRepository {
     id: string[],
   ): Promise<Result<Number, ExerciseRepositoryErrorResponse>> {
     try {
-      const deletedEntityCount = await this.prisma.exercise.deleteMany({
+      const deletedEntityCount = await this.prisma.exercises.deleteMany({
         where: {
           id: {
             in: id,
@@ -111,8 +111,6 @@ export interface ExerciseUpdateRequestData {
   name: string;
   type: string;
   body_part: string;
-  reps: number[];
-  weight: number[];
 }
 
 export abstract class ExerciseRepositoryErrorResponse extends Error {}

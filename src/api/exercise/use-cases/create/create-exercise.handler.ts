@@ -16,8 +16,6 @@ export class CreateExerciseHandler
       name: command.name,
       type: command.type,
       body_part: command.body_part,
-      reps: command.reps,
-      weight: command.weight,
     } as ExerciseCreateRequest);
 
     return exerciseCreateResult.map(

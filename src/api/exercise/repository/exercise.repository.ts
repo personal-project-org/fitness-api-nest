@@ -96,6 +96,18 @@ export class ExerciseRepository {
       return Result.err(new UnknownError());
     }
   }
+
+  async findById(
+    id: string,
+  ): Promise<Result<Exercise, ExerciseRepositoryErrorResponse>> {
+    const entity = await this.prisma.exercises.findUnique({
+      where: { id },
+    });
+    if (entity) {
+      return Result.ok(mapDbEntityToDomainEntity(entity));
+    }
+    return Result.err(new NotFound());
+  }
 }
 
 export interface ExerciseCreateRequest {
@@ -118,3 +130,5 @@ export abstract class ExerciseRepositoryErrorResponse extends Error {}
 export class InvalidState extends ExerciseRepositoryErrorResponse {}
 
 export class UnknownError extends ExerciseRepositoryErrorResponse {}
+
+export class NotFound extends ExerciseRepositoryErrorResponse {}

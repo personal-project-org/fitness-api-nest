@@ -4,12 +4,19 @@ import {
   FoodUpdateRequestData,
 } from 'src/api/food/repository/food.repository';
 import { RepositoryCreationError } from '../create/create-food.handler';
-import { UpdateFoodCommand } from './update.command';
+import { UpdateFoodCommand } from './update-food.command';
+import { Result } from '@badrap/result';
 
 @CommandHandler(UpdateFoodCommand)
 export class UpdateFoodHandler implements ICommandHandler<UpdateFoodCommand> {
   constructor(private readonly foodRepository: FoodRepository) {}
   async execute(command: UpdateFoodCommand): Promise<any> {
+    const desiredFoodToUpdate = await this.foodRepository.findById(command.id);
+
+    if (desiredFoodToUpdate.isErr) {
+      return Result.err(new NoRecordAvailable());
+    }
+
     const foodUpdateResult = await this.foodRepository.update({
       id: command.id,
       name: command.name,
@@ -29,3 +36,5 @@ export class UpdateFoodHandler implements ICommandHandler<UpdateFoodCommand> {
 export abstract class FoodUpdateErrorResponse extends Error {}
 
 export class RepositoryUpdateError extends FoodUpdateErrorResponse {}
+
+export class NoRecordAvailable extends FoodUpdateErrorResponse {}

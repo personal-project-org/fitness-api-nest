@@ -1,5 +1,8 @@
 import { Result } from '@badrap/result';
-import { InternalServerErrorException } from '@nestjs/common';
+import {
+  InternalServerErrorException,
+  NotFoundException,
+} from '@nestjs/common';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { Args, Mutation, Resolver, Query } from '@nestjs/graphql';
 import { CreateExerciseInput } from '../exercise/entities/gql-models/create.exercise-input';
@@ -16,6 +19,7 @@ import { GetAllExerciseCommand } from './use-cases/get-all-exercises/get-all-exe
 import { GetAllExerciseErrorResponse } from './use-cases/get-all-exercises/get-all-exercise.handler';
 import { UpdateExerciseCommand } from './use-cases/update/update-exercise.command';
 import { ExerciseUpdateErrorResponse } from './use-cases/update/update-exercise.handler';
+import { NoRecordAvailable } from './use-cases/update/update-exercise.handler';
 
 @Resolver((_of) => ExerciseObjectType)
 export class ExerciseResolver {
@@ -79,8 +83,6 @@ export class ExerciseResolver {
         input.name,
         input.type,
         input.body_part,
-        input.reps,
-        input.weight,
       ),
     );
 
@@ -88,6 +90,11 @@ export class ExerciseResolver {
       .map(
         (exercise) => mapDomainEntityToGqlObjectType(exercise),
         (err) => {
+          if (err instanceof NoRecordAvailable) {
+            return new NotFoundException(
+              "The exercise item you're trying to update does not exist.",
+            );
+          }
           return new InternalServerErrorException();
         },
       )
@@ -104,15 +111,7 @@ export class ExerciseResolver {
     const result = await this.commandBus.execute<
       CreateExerciseCommand,
       Result<Exercise, ExerciseCreateErrorResponse>
-    >(
-      new CreateExerciseCommand(
-        input.name,
-        input.type,
-        input.body_part,
-        input.reps,
-        input.weight,
-      ),
-    );
+    >(new CreateExerciseCommand(input.name, input.type, input.body_part));
 
     return result
       .map(

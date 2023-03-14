@@ -6,8 +6,6 @@ export class UpdateExerciseCommand extends ExerciseMutationCommand {
     public readonly name: string,
     public readonly type: string,
     public readonly body_part: string,
-    public readonly reps: number[],
-    public readonly weight: number[],
   ) {
     super();
   }

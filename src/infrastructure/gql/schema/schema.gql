@@ -52,16 +52,12 @@ input UpdateExerciseInput {
   name: String!
   type: String!
   body_part: String!
-  reps: [Float!]!
-  weight: [Float!]!
 }
 
 input CreateExerciseInput {
   name: String!
   type: String!
   body_part: String!
-  reps: [Float!]!
-  weight: [Float!]!
 }
 
 input CreateFoodInput {

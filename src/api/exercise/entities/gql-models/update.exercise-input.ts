@@ -22,14 +22,4 @@ export class UpdateExerciseInput {
   @IsString()
   @IsNotEmpty()
   body_part: string;
-
-  @Field((_type) => [Number])
-  @IsArray()
-  @IsNotEmpty()
-  reps: number[];
-
-  @Field((_type) => [Number])
-  @IsArray()
-  @IsNotEmpty()
-  weight: number[];
 }

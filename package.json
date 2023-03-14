@@ -6,11 +6,11 @@
   "private": true,
   "license": "UNLICENSED",
   "engines": {
-    "npm": ">=8.0.0",
+    "npm": ">9.0.0",
     "node": ">=16.0.0"
   },
   "scripts": {
-    "deploy": "export NODE_ENV=production && npm ci --legacy-peer-deps && prisma migrate deploy && npm run build && dotenv -e .remote.env && npm run start:prod2",
+    "deploy": "export NODE_ENV=production && npm install --legacy-peer-deps && prisma migrate deploy && npm run build && dotenv -e .remote.env && npm run start:prod2",
     "start:debug": "nest start --watch --debug",
     "prebuild": "rimraf dist",
     "build": "nest build",

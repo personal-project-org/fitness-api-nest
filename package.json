@@ -10,7 +10,7 @@
     "node": ">=16.0.0"
   },
   "scripts": {
-    "deploy": "export NODE_ENV=production && npm install --legacy-peer-deps && prisma migrate deploy && npm run build && dotenv -e .remote.env && npm run start:prod2",
+    "deploy": "export NODE_ENV=production && npm install npm@9.0 --legacy-peer-deps && prisma migrate deploy && npm run build && npm run start:prod2",
     "start:debug": "nest start --watch --debug",
     "prebuild": "rimraf dist",
     "build": "nest build",
@@ -50,6 +50,7 @@
     "cross-env": "^7.0.3",
     "graphql": "^16.6.0",
     "graphql-type-json": "^0.3.2",
+    "npm": "9.0",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
     "rxjs": "^7.2.0",

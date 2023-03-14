@@ -13,7 +13,7 @@ export class SetRepository {
     req: SetCreateRequest,
   ): Promise<Result<Set, SetRepositoryErrorResponse>> {
     try {
-      const entity = await this.prisma.sets.create({
+      const entity = await this.prisma.set.create({
         data: req,
       });
 
@@ -30,7 +30,7 @@ export class SetRepository {
 
   async getAllSets(): Promise<Result<Set[], SetRepositoryErrorResponse>> {
     try {
-      const entity = await this.prisma.sets.findMany({});
+      const entity = await this.prisma.set.findMany({});
 
       if (entity) {
         return Result.ok(
@@ -52,7 +52,7 @@ export class SetRepository {
       const newSet = (({ id, ...others }) => others)(
         setUpdateRequestData,
       ) as Set;
-      const updatedEntity = await this.prisma.sets.update({
+      const updatedEntity = await this.prisma.set.update({
         where: {
           id: setUpdateRequestData.id,
         },
@@ -75,7 +75,7 @@ export class SetRepository {
     id: string[],
   ): Promise<Result<Number, SetRepositoryErrorResponse>> {
     try {
-      const deletedEntityCount = await this.prisma.sets.deleteMany({
+      const deletedEntityCount = await this.prisma.set.deleteMany({
         where: {
           id: {
             in: id,
@@ -95,7 +95,7 @@ export class SetRepository {
   }
 
   async findById(id: string): Promise<Result<Set, SetRepositoryErrorResponse>> {
-    const entity = await this.prisma.sets.findUnique({
+    const entity = await this.prisma.set.findUnique({
       where: { id },
     });
     if (entity) {

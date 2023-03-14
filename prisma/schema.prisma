@@ -19,14 +19,14 @@ model Food {
   fats      String
 }
 
-model Exercises {
+model Exercise {
   id                String @id @default(uuid())
   name              String
   type              String
   body_part         String
 }
 
-model Sets {
+model Set {
   id                String @id @default(uuid())
   reps              Int
   weight            Int
@@ -34,7 +34,7 @@ model Sets {
   exerciseId        String 
 }
 
-model Accounts {
+model Account {
   id                    String @id @default(uuid())
   username              String
   calories_goal         String

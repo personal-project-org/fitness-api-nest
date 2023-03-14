@@ -14,7 +14,7 @@ export class ExerciseRepository {
     req: ExerciseCreateRequest,
   ): Promise<Result<Exercise, ExerciseRepositoryErrorResponse>> {
     try {
-      const entity = await this.prisma.exercises.create({
+      const entity = await this.prisma.exercise.create({
         data: req,
       });
 
@@ -33,7 +33,7 @@ export class ExerciseRepository {
     Result<Exercise[], ExerciseRepositoryErrorResponse>
   > {
     try {
-      const entity = await this.prisma.exercises.findMany({});
+      const entity = await this.prisma.exercise.findMany({});
 
       if (entity) {
         return Result.ok(
@@ -55,7 +55,7 @@ export class ExerciseRepository {
       const newExercise = (({ id, ...others }) => others)(
         exercisesUpdateRequestData,
       ) as Exercise;
-      const updatedEntity = await this.prisma.exercises.update({
+      const updatedEntity = await this.prisma.exercise.update({
         where: {
           id: exercisesUpdateRequestData.id,
         },
@@ -78,7 +78,7 @@ export class ExerciseRepository {
     id: string[],
   ): Promise<Result<Number, ExerciseRepositoryErrorResponse>> {
     try {
-      const deletedEntityCount = await this.prisma.exercises.deleteMany({
+      const deletedEntityCount = await this.prisma.exercise.deleteMany({
         where: {
           id: {
             in: id,
@@ -100,7 +100,7 @@ export class ExerciseRepository {
   async findById(
     id: string,
   ): Promise<Result<Exercise, ExerciseRepositoryErrorResponse>> {
-    const entity = await this.prisma.exercises.findUnique({
+    const entity = await this.prisma.exercise.findUnique({
       where: { id },
     });
     if (entity) {

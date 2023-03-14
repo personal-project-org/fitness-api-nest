@@ -1,4 +1,4 @@
-import { Sets as SetsPrisma } from '@prisma/client';
+import { Set as SetsPrisma } from '@prisma/client';
 import { Set } from '../entities/local-model/set.entity';
 
 export const mapDbEntityToDomainEntity = (entity: SetsPrisma): Set => {

@@ -1,7 +1,9 @@
 import { SetQueryCommand } from '../../shared/set-query.command';
 import { SetRepository } from '../../repository/set.repository';
 import { GetAllSetsCommand } from './get-all-sets.command';
+import { QueryHandler } from '@nestjs/cqrs';
 
+@QueryHandler(GetAllSetsCommand)
 export class GetAllSetsHandler {
   constructor(private readonly setRepository: SetRepository) {}
 

@@ -1,5 +1,5 @@
-import { checkRule } from 'src/infrastructure/entity-rules/rule.check';
-import { StringCannotBeEmptyRule } from 'src/infrastructure/entity-rules/string-cannot-be.empty.rule';
+import { checkRule } from '../../../../infrastructure/entity-rules/rule.check';
+import { StringCannotBeEmptyRule } from '../../../../infrastructure/entity-rules/string-cannot-be.empty.rule';
 
 export class Exercise {
   private _id: string;

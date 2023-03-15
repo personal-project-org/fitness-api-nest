@@ -1,9 +1,10 @@
 import { Result } from '@badrap/result';
-import { Logger } from '@nestjs/common';
-import { PrismaService } from 'src/infrastructure/prisma/prisma.service';
+import { Injectable, Logger } from '@nestjs/common';
+import { PrismaService } from '../../../infrastructure/prisma/prisma.service';
 import { Set } from '../entities/local-model/set.entity';
 import { mapDbEntityToDomainEntity } from './mapper';
 
+@Injectable()
 export class SetRepository {
   private readonly logger = new Logger(SetRepository.name);
 

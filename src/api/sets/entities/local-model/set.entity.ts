@@ -1,6 +1,6 @@
 import { checkRule } from 'src/infrastructure/entity-rules/rule.check';
 import { StringCannotBeEmptyRule } from 'src/infrastructure/entity-rules/string-cannot-be.empty.rule';
-import { IntegerCannotBeEmptyRule } from 'src/infrastructure/entity-rules/integer-cannot-be.empty.rule';
+import { IntegerCannotBeEmptyRule } from '../../../../infrastructure/entity-rules/integer-cannot-be.empty.rule';
 
 export class Set {
   private _id: string;

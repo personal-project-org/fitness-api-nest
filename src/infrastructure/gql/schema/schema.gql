@@ -58,6 +58,8 @@ type Mutation {
 
   """Logs a new set of any given exercise."""
   createSet(input: CreateSetInput!): SetObjectType!
+  updateSet(input: UpdateSetInput!): SetObjectType!
+  deleteSets(input: DeleteSetInput!): Float!
 }
 
 input DeleteExercisesInput {
@@ -103,4 +105,16 @@ input CreateSetInput {
   weight: Float
   date: DateTime!
   exerciseId: String!
+}
+
+input UpdateSetInput {
+  id: String!
+  reps: Float
+  weight: Float
+  date: DateTime
+  exerciseId: String!
+}
+
+input DeleteSetInput {
+  ids: [String!]!
 }

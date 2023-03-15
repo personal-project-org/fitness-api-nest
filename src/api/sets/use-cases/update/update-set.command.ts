@@ -31,8 +31,8 @@ export class UpdateSetHandler implements ICommandHandler<UpdateSetCommand> {
   }
 }
 
-export abstract class FoodUpdateErrorResponse extends Error {}
+export abstract class UpdateSetErrorResponse extends Error {}
 
-export class RepositoryUpdateError extends FoodUpdateErrorResponse {}
+export class RepositoryUpdateError extends UpdateSetErrorResponse {}
 
-export class NoRecordAvailable extends FoodUpdateErrorResponse {}
+export class NoRecordAvailable extends UpdateSetErrorResponse {}

@@ -10,7 +10,7 @@
     "node": ">=16.0.0"
   },
   "scripts": {
-    "deploy": "export NODE_ENV=production && npm install --force && prisma migrate deploy && npm run build && npm run start:prod",
+    "deploy": "export NODE_ENV=production && npm install --force && npx prisma migrate deploy && npm run build && npm run start:prod",
     "start:debug": "nest start --watch --debug",
     "prebuild": "rimraf dist",
     "build": "nest build",

@@ -7,14 +7,18 @@ import { Food } from 'src/api/food/entities/local-model/food.entity';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { FoodCreateErrorResponse } from 'src/api/food/use-cases/create/create-food.handler';
 import { mapDomainEntityToGqlObjectType } from './entities/gql-models/mapper';
-import { InternalServerErrorException } from '@nestjs/common';
+import {
+  InternalServerErrorException,
+  NotFoundException,
+} from '@nestjs/common';
 import { DeleteFoodCommand } from './use-cases/delete/delete-food.command';
 import { FoodDeleteErrorResponse } from './use-cases/delete/delete-food.handler';
 import { GetAllFoodCommand } from './use-cases/get-all-foods/get-all.command';
 import { DeleteFoodInput } from './entities/gql-models/delete.food-input';
-import { UpdateFoodCommand } from './use-cases/update/update.command';
+import { UpdateFoodCommand } from './use-cases/update/update-food.command';
 import { UpdateFoodInput } from './entities/gql-models/update.food-input';
 import { GetAllFoodErrorResponse } from './use-cases/get-all-foods/get-all.handler';
+import { NoRecordAvailable } from './use-cases/update/update-food.handler';
 
 @Resolver((_of) => FoodObjectType)
 export class FoodResolver {
@@ -106,9 +110,16 @@ export class FoodResolver {
     );
 
     return result
-      .map((food) => {
-        return food;
-      })
+      .map(
+        (food) => food,
+        (err) => {
+          if (err instanceof NoRecordAvailable) {
+            return new NotFoundException(
+              "The food item you're trying to update does not exist.",
+            );
+          }
+        },
+      )
       .unwrap();
   }
 }

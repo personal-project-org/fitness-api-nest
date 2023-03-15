@@ -24,16 +24,22 @@ model Exercise {
   name              String
   type              String
   body_part         String
-  reps              Int[]
-  weight            Int[]
 }
 
-model Accounts {
+model Set {
+  id                String @id @default(uuid())
+  reps              Int
+  weight            Int
+  date              DateTime
+  exerciseId        String 
+}
+
+model Account {
   id                    String @id @default(uuid())
   username              String
   calories_goal         String
   protein_goal          String
   carbs_goal            String
-  fats_goal            String
+  fats_goal             String
 }
 

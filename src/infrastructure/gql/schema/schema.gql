@@ -7,9 +7,20 @@ type ExerciseObjectType {
   name: String!
   type: String!
   body_part: String!
-  reps: [Int!]!
-  weight: [Int!]!
 }
+
+type SetObjectType {
+  id: String!
+  reps: Float!
+  weight: Float!
+  date: DateTime!
+  exerciseId: String!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
 
 type FoodObjectType {
   id: String!
@@ -23,6 +34,7 @@ type FoodObjectType {
 type Query {
   getAllExercises: [ExerciseObjectType!]!
   getAllFoods: [FoodObjectType!]!
+  getAllSets: [SetObjectType!]!
 }
 
 type Mutation {
@@ -43,6 +55,11 @@ type Mutation {
 
   """Removes foods given an array of ids."""
   updateFood(input: UpdateFoodInput!): FoodObjectType!
+
+  """Logs a new set of any given exercise."""
+  createSet(input: CreateSetInput!): SetObjectType!
+  updateSet(input: UpdateSetInput!): SetObjectType!
+  deleteSets(input: DeleteSetInput!): Float!
 }
 
 input DeleteExercisesInput {
@@ -54,16 +71,12 @@ input UpdateExerciseInput {
   name: String!
   type: String!
   body_part: String!
-  reps: [Float!]!
-  weight: [Float!]!
 }
 
 input CreateExerciseInput {
   name: String!
   type: String!
   body_part: String!
-  reps: [Float!]!
-  weight: [Float!]!
 }
 
 input CreateFoodInput {
@@ -85,4 +98,23 @@ input UpdateFoodInput {
   protein: String!
   carbs: String!
   fats: String!
+}
+
+input CreateSetInput {
+  reps: Float!
+  weight: Float
+  date: DateTime!
+  exerciseId: String!
+}
+
+input UpdateSetInput {
+  id: String!
+  reps: Float
+  weight: Float
+  date: DateTime
+  exerciseId: String!
+}
+
+input DeleteSetInput {
+  ids: [String!]!
 }

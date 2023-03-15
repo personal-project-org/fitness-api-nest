@@ -93,6 +93,18 @@ export class FoodRepository {
       return Result.err(new UnknownError());
     }
   }
+
+  async findById(
+    id: string,
+  ): Promise<Result<Food, FoodRepositoryErrorResponse>> {
+    const entity = await this.prisma.food.findUnique({
+      where: { id },
+    });
+    if (entity) {
+      return Result.ok(mapDbEntityToDomainEntity(entity));
+    }
+    return Result.err(new NotFound());
+  }
 }
 
 export interface FoodCreateRequest {
@@ -117,3 +129,5 @@ export abstract class FoodRepositoryErrorResponse extends Error {}
 export class InvalidState extends FoodRepositoryErrorResponse {}
 
 export class UnknownError extends FoodRepositoryErrorResponse {}
+
+export class NotFound extends FoodRepositoryErrorResponse {}

@@ -13,7 +13,7 @@
     "deploy": "npm install --legacy-peer-deps && prisma migrate deploy && npm run build && npm run start:prod",
     "start:debug": "nest start --watch --debug",
     "prebuild": "rimraf dist",
-    "build": "nest build",
+    "build": "nest build && prisma generate",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "npm run start:dev",
     "start:dev": "export NODE_ENV=development && npm run db:shutdown && npm run db:up && sleep 1 && prisma migrate dev && nest start --watch --debug",

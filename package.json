@@ -1,7 +1,7 @@
 {
   "name": "fitness-api",
-  "version": "1.0.0",
-  "description": "Latest stable version of the application. Configured with deployment as a priority, to run the app locally, the database URL should be changed.",
+  "version": "1.0.1",
+  "description": "Development Version - Accounts.",
   "author": "",
   "private": true,
   "license": "UNLICENSED",

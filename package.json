@@ -10,7 +10,7 @@
     "node": ">=16.0.0"
   },
   "scripts": {
-    "deploy": "npm install --legacy-peer-deps && npx prisma migrate deploy && npm run build && npm run start:prod",
+    "deploy": "npm install --legacy-peer-deps && npx prisma migrate deploy && npm run build && npm run start:prod2",
     "start:debug": "nest start --watch --debug",
     "prebuild": "rimraf dist",
     "build": "nest build && prisma generate",

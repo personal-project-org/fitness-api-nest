@@ -10,10 +10,10 @@
     "node": ">=16.0.0"
   },
   "scripts": {
-    "deploy": "npm install --legacy-peer-deps && npx prisma migrate deploy && npm run build && npm run start:prod2",
+    "deploy": "npm install --legacy-peer-deps && npx prisma migrate deploy && npx prisma generate && npm run build && npm run start:prod2",
     "start:debug": "nest start --watch --debug",
-    "prebuild": "rimraf dist",
-    "build": "nest build && prisma generate",
+    "prebuild": "rimraf dist && rimraf node_modules",
+    "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "npm run start:dev",
     "start:dev": "export NODE_ENV=development && npm run db:shutdown && npm run db:up && sleep 1 && prisma migrate dev && nest start --watch --debug",

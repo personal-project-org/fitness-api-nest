@@ -16,6 +16,7 @@ export class CreateAccountHandler
       username: command.username,
       password: command.password,
       calorie_goal: command.calorie_goal,
+      protein_goal: command.protein_goal,
       carb_goal: command.carb_goal,
       fat_goal: command.fat_goal,
     } as AccountCreateRequest);

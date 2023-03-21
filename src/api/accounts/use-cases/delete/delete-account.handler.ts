@@ -28,7 +28,9 @@ export class DeleteAccountHandler
     const accountDeleteResult = await this.accountRepository.delete(command.id);
     return accountDeleteResult.map(
       (deletedAccount) => deletedAccount,
-      () => new RepositoryDeleteError(),
+      (err) => {
+        return new RepositoryDeleteError();
+      },
     );
   }
 }

@@ -1,5 +1,6 @@
 import { Result } from '@badrap/result';
 import {
+  ConflictException,
   InternalServerErrorException,
   NotFoundException,
   UnauthorizedException,
@@ -11,7 +12,10 @@ import { AccountObjectType } from './entities/gql-models/account.object-type';
 import { CreateAccountInput } from './entities/gql-models/create.account-input';
 import { mapDomainEntityToGqlObjectType } from './entities/gql-models/mapper';
 import { CreateAccountCommand } from './use-cases/create/create-account.command';
-import { AccountCreateErrorResponse } from './use-cases/create/create-account.handler';
+import {
+  AccountCreateErrorResponse,
+  RepositoryUsernameAlreadyTakenError,
+} from './use-cases/create/create-account.handler';
 import * as bcrypt from 'bcrypt';
 import { GetAllAccountsCommand } from './use-cases/get-all-accounts/get-all-accounts.command';
 import { GetAllAccountsErrorResponse } from './use-cases/get-all-accounts/get-all-accounts.handler';
@@ -62,6 +66,11 @@ export class AccountResolver {
       .map(
         (account) => mapDomainEntityToGqlObjectType(account),
         (err) => {
+          if (err instanceof RepositoryUsernameAlreadyTakenError) {
+            return new ConflictException(
+              'The username you specified is unavailable.',
+            );
+          }
           return new InternalServerErrorException();
         },
       )

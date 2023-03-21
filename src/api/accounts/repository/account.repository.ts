@@ -26,6 +26,13 @@ export class AccountRepository {
       return Result.err(new InvalidState());
     } catch (e) {
       this.logger.error(e);
+
+      if (e.code === 'P2002' && e.meta.target[0] === 'username') {
+        console.log('create account err output:', JSON.stringify(e, null, 2));
+
+        return Result.err(new UsernameAlreadyTakenError());
+      }
+
       return Result.err(new UnknownError());
     }
   }
@@ -148,3 +155,5 @@ export class InvalidState extends AccountRepositoryErrorResponse {}
 export class UnknownError extends AccountRepositoryErrorResponse {}
 
 export class NotFound extends AccountRepositoryErrorResponse {}
+
+export class UsernameAlreadyTakenError extends AccountRepositoryErrorResponse {}

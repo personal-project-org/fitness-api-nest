@@ -2,6 +2,7 @@ import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import {
   AccountCreateRequest,
   AccountRepository,
+  UsernameAlreadyTakenError,
 } from '../../repository/account.repository';
 import { CreateAccountCommand } from './create-account.command';
 
@@ -23,7 +24,11 @@ export class CreateAccountHandler
 
     return accountCreateResult.map(
       (createdAccount) => createdAccount,
-      () => new RepositoryCreationError(),
+      (err) => {
+        if (err instanceof UsernameAlreadyTakenError) {
+          return new RepositoryUsernameAlreadyTakenError();
+        }
+      },
     );
   }
 }
@@ -31,3 +36,5 @@ export class CreateAccountHandler
 export abstract class AccountCreateErrorResponse extends Error {}
 
 export class RepositoryCreationError extends AccountCreateErrorResponse {}
+
+export class RepositoryUsernameAlreadyTakenError extends AccountCreateErrorResponse {}

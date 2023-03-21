@@ -37,9 +37,16 @@ model Set {
 model Account {
   id                    String @id @default(uuid())
   username              String
+  password              String
   calories_goal         String
   protein_goal          String
   carbs_goal            String
   fats_goal             String
 }
 
+model FoodConsumedByUser {
+  id                    String @id @default(uuid())
+  date                  DateTime
+  // In case the food is deleted
+  food                  Json
+}

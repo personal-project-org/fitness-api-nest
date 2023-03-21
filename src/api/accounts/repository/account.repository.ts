@@ -59,8 +59,6 @@ export class AccountRepository {
         salt,
       );
 
-      console.log('within update: ', hashedNewPw);
-
       const newAccountInfo = accountUpdateRequestData.new_password
         ? ({
             id: accountUpdateRequestData.id,

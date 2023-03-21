@@ -21,14 +21,12 @@ import { GetAllAccountsCommand } from './use-cases/get-all-accounts/get-all-acco
 import { GetAllAccountsErrorResponse } from './use-cases/get-all-accounts/get-all-accounts.handler';
 import { UpdateAccountInput } from './entities/gql-models/update.account-input';
 import { UpdateAccountCommand } from './use-cases/update/update-account.command';
-import {
-  AccountUpdateErrorResponse,
-  InvalidPassword,
-} from './use-cases/update/update-account.handler';
+import { AccountUpdateErrorResponse } from './use-cases/update/update-account.handler';
 import { DeleteAccountCommand } from './use-cases/delete/delete-account.command';
 import {
   AccountDeleteErrorResponse,
   NoRecordAvailable,
+  InvalidPassword,
 } from './use-cases/delete/delete-account.handler';
 import { DeleteAccountInput } from './entities/gql-models/delete.account-input';
 

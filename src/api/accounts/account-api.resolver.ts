@@ -8,6 +8,7 @@ import { CreateAccountInput } from './entities/gql-models/create.account-input';
 import { mapDomainEntityToGqlObjectType } from './entities/gql-models/mapper';
 import { CreateAccountCommand } from './use-cases/create/create-account.command';
 import { AccountCreateErrorResponse } from './use-cases/create/create-account.handler';
+import * as bcrypt from 'bcrypt';
 
 @Resolver((_of) => AccountObjectType)
 export class AccountResolver {
@@ -23,13 +24,15 @@ export class AccountResolver {
   async createAccount(
     @Args('input') input: CreateAccountInput,
   ): Promise<AccountObjectType> {
+    const salt = 10;
+    const hashedPw = await bcrypt.hash(input.password, salt);
     const result = await this.commandBus.execute<
       CreateAccountCommand,
       Result<Account, AccountCreateErrorResponse>
     >(
       new CreateAccountCommand(
         input.username,
-        input.password,
+        hashedPw,
         input.calorie_goal,
         input.protein_goal,
         input.carb_goal,

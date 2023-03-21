@@ -45,6 +45,7 @@ type Query {
   getAllExercises: [ExerciseObjectType!]!
   getAllFoods: [FoodObjectType!]!
   getAllSets: [SetObjectType!]!
+  getAllAccounts: [AccountObjectType!]!
 }
 
 type Mutation {
@@ -73,6 +74,12 @@ type Mutation {
 
   """Registers a new user account."""
   createAccount(input: CreateAccountInput!): AccountObjectType!
+
+  """Updates an account."""
+  updateAccount(input: UpdateAccountInput!): AccountObjectType!
+
+  """Deletes a user account."""
+  deleteAccount(input: DeleteAccountInput!): Float!
 }
 
 input DeleteExercisesInput {
@@ -139,4 +146,18 @@ input CreateAccountInput {
   protein_goal: Float
   carb_goal: Float
   fat_goal: Float
+}
+
+input UpdateAccountInput {
+  id: String!
+  username: String!
+  password: String!
+  calorie_goal: Float!
+  protein_goal: Float!
+  carb_goal: Float!
+  fat_goal: Float!
+}
+
+input DeleteAccountInput {
+  id: String!
 }

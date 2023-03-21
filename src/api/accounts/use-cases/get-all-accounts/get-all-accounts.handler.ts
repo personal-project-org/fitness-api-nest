@@ -16,6 +16,6 @@ export class GetAllAccountsHandler
   }
 }
 
-export abstract class GetAllAccountErrorResponse extends Error {}
+export abstract class GetAllAccountsErrorResponse extends Error {}
 
-export class RepositoryGetAllError extends GetAllAccountErrorResponse {}
+export class RepositoryGetAllError extends GetAllAccountsErrorResponse {}

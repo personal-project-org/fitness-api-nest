@@ -8,7 +8,7 @@ export class UpdateAccountInput {
   @IsNotEmpty()
   id: string;
 
-  @Field()
+  @Field((_type) => String, { nullable: true })
   @ValidateIf((input) => input.username !== undefined)
   @IsString()
   username: string;
@@ -27,20 +27,20 @@ export class UpdateAccountInput {
   @Field((_type) => Number, { nullable: true })
   @ValidateIf((input) => input.calorie_goal !== undefined)
   @IsNumber()
-  calorie_goal: number;
+  calorie_goal?: number;
 
   @Field((_type) => Number, { nullable: true })
   @ValidateIf((input) => input.protein_goal !== undefined)
   @IsNumber()
-  protein_goal: number;
+  protein_goal?: number;
 
   @Field((_type) => Number, { nullable: true })
   @ValidateIf((input) => input.carb_goal !== undefined)
   @IsNumber()
-  carb_goal: number;
+  carb_goal?: number;
 
   @Field((_type) => Number, { nullable: true })
   @ValidateIf((input) => input.fat_goal !== undefined)
   @IsNumber()
-  fat_goal: number;
+  fat_goal?: number;
 }

@@ -12,14 +12,14 @@ export class AccountObjectType {
   password: string;
 
   @Field()
-  calorie_goal: number | undefined;
+  calorie_goal?: number;
 
   @Field()
-  protein_goal: number | undefined;
+  protein_goal?: number;
 
   @Field()
-  carb_goal: number | undefined;
+  carb_goal?: number;
 
   @Field()
-  fat_goal: number | undefined;
+  fat_goal?: number;
 }

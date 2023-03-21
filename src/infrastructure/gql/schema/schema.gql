@@ -150,7 +150,7 @@ input CreateAccountInput {
 
 input UpdateAccountInput {
   id: String!
-  username: String!
+  username: String
   password: String!
   new_password: String
   calorie_goal: Float

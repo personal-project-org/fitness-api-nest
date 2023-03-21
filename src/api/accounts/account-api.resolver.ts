@@ -21,7 +21,10 @@ import { GetAllAccountsCommand } from './use-cases/get-all-accounts/get-all-acco
 import { GetAllAccountsErrorResponse } from './use-cases/get-all-accounts/get-all-accounts.handler';
 import { UpdateAccountInput } from './entities/gql-models/update.account-input';
 import { UpdateAccountCommand } from './use-cases/update/update-account.command';
-import { AccountUpdateErrorResponse } from './use-cases/update/update-account.handler';
+import {
+  AccountUpdateErrorResponse,
+  InvalidPassword as InvalidPasswordUpdate,
+} from './use-cases/update/update-account.handler';
 import { DeleteAccountCommand } from './use-cases/delete/delete-account.command';
 import {
   AccountDeleteErrorResponse,
@@ -122,7 +125,7 @@ export class AccountResolver {
       .map(
         (account) => mapDomainEntityToGqlObjectType(account),
         (err) => {
-          if (err instanceof InvalidPassword) {
+          if (err instanceof InvalidPasswordUpdate) {
             return new UnauthorizedException('Invalid password.');
           } else if (err instanceof NoRecordAvailable) {
             return new NotFoundException(

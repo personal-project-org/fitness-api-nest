@@ -32,6 +32,7 @@ model Set {
   weight            Int
   date              DateTime
   exerciseId        String 
+  //TODO: add accountId, getAllSets endpoint
 }
 
 model Account {

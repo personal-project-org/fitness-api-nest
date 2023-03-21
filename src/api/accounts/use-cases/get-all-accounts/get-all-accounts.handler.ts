@@ -3,7 +3,7 @@ import { AccountRepository } from '../../repository/account.repository';
 import { GetAllAccountsCommand } from './get-all-accounts.command';
 
 @QueryHandler(GetAllAccountsCommand)
-export class GetAllAccountHandler
+export class GetAllAccountsHandler
   implements IQueryHandler<GetAllAccountsCommand>
 {
   constructor(private readonly accountRepository: AccountRepository) {}

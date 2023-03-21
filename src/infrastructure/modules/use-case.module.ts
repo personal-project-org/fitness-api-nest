@@ -12,10 +12,18 @@ import { CreateSetHandler } from '../../api/sets/use-cases/create/create-set.han
 import { DeleteSetHandler } from '../../api/sets/use-cases/delete/delete-set.handler';
 import { GetAllSetsHandler } from '../../api/sets/use-cases/get-all-sets/get-all-sets.handler';
 import { UpdateSetHandler } from '../../api/sets/use-cases/update/update-set.command';
+import { CreateAccountHandler } from 'src/api/accounts/use-cases/create/create-account.handler';
+import { DeleteAccountHandler } from 'src/api/accounts/use-cases/delete/delete-account.handler';
+import { UpdateAccountHandler } from 'src/api/accounts/use-cases/update/update-account.handler';
+import { GetAllAccountsHandler } from 'src/api/accounts/use-cases/get-all-accounts/get-all-accounts.handler';
 
 @Module({
   imports: [InfrastructureModule],
   providers: [
+    CreateAccountHandler,
+    DeleteAccountHandler,
+    GetAllAccountsHandler,
+    UpdateAccountHandler,
     CreateSetHandler,
     DeleteSetHandler,
     GetAllSetsHandler,

@@ -7,4 +7,9 @@ export class DeleteAccountInput {
   @IsString()
   @IsNotEmpty()
   id: string;
+
+  @Field()
+  @IsString()
+  @IsNotEmpty()
+  password: string;
 }

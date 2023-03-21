@@ -161,4 +161,5 @@ input UpdateAccountInput {
 
 input DeleteAccountInput {
   id: String!
+  password: String!
 }

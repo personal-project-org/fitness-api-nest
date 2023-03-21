@@ -1,6 +1,7 @@
 import { Result } from '@badrap/result';
 import {
   InternalServerErrorException,
+  NotFoundException,
   UnauthorizedException,
 } from '@nestjs/common';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
@@ -21,7 +22,10 @@ import {
   InvalidPassword,
 } from './use-cases/update/update-account.handler';
 import { DeleteAccountCommand } from './use-cases/delete/delete-account.command';
-import { AccountDeleteErrorResponse } from './use-cases/delete/delete-account.handler';
+import {
+  AccountDeleteErrorResponse,
+  NoRecordAvailable,
+} from './use-cases/delete/delete-account.handler';
 import { DeleteAccountInput } from './entities/gql-models/delete.account-input';
 
 @Resolver((_of) => AccountObjectType)
@@ -113,6 +117,10 @@ export class AccountResolver {
         (err) => {
           if (err instanceof InvalidPassword) {
             return new UnauthorizedException('Invalid password.');
+          } else if (err instanceof NoRecordAvailable) {
+            return new NotFoundException(
+              "The account you're trying to update does not exist.",
+            );
           }
           return new InternalServerErrorException();
         },
@@ -128,12 +136,24 @@ export class AccountResolver {
     const result = await this.commandBus.execute<
       DeleteAccountCommand,
       Result<Account, AccountDeleteErrorResponse>
-    >(new DeleteAccountCommand(input.id));
+    >(new DeleteAccountCommand(input.id, input.password));
 
     return result
-      .map((account) => {
-        return account;
-      })
+      .map(
+        (account) => {
+          return account;
+        },
+        (err) => {
+          if (err instanceof InvalidPassword) {
+            return new UnauthorizedException('Invalid password.');
+          } else if (err instanceof NoRecordAvailable) {
+            return new NotFoundException(
+              "The account you're trying to delete does not exist.",
+            );
+          }
+          return new InternalServerErrorException();
+        },
+      )
       .unwrap();
   }
 }

@@ -31,10 +31,21 @@ type FoodObjectType {
   fats: String!
 }
 
+type AccountObjectType {
+  id: String!
+  username: String!
+  password: String!
+  calorie_goal: Float!
+  protein_goal: Float!
+  carb_goal: Float!
+  fat_goal: Float!
+}
+
 type Query {
   getAllExercises: [ExerciseObjectType!]!
   getAllFoods: [FoodObjectType!]!
   getAllSets: [SetObjectType!]!
+  getAllAccounts: [AccountObjectType!]!
 }
 
 type Mutation {
@@ -60,6 +71,15 @@ type Mutation {
   createSet(input: CreateSetInput!): SetObjectType!
   updateSet(input: UpdateSetInput!): SetObjectType!
   deleteSets(input: DeleteSetInput!): Float!
+
+  """Registers a new user account."""
+  createAccount(input: CreateAccountInput!): AccountObjectType!
+
+  """Updates an account."""
+  updateAccount(input: UpdateAccountInput!): AccountObjectType!
+
+  """Deletes a user account."""
+  deleteAccount(input: DeleteAccountInput!): AccountObjectType!
 }
 
 input DeleteExercisesInput {
@@ -117,4 +137,29 @@ input UpdateSetInput {
 
 input DeleteSetInput {
   ids: [String!]!
+}
+
+input CreateAccountInput {
+  username: String!
+  password: String!
+  calorie_goal: Float
+  protein_goal: Float
+  carb_goal: Float
+  fat_goal: Float
+}
+
+input UpdateAccountInput {
+  id: String!
+  username: String!
+  password: String!
+  new_password: String
+  calorie_goal: Float
+  protein_goal: Float
+  carb_goal: Float
+  fat_goal: Float
+}
+
+input DeleteAccountInput {
+  id: String!
+  password: String!
 }

@@ -3,6 +3,7 @@ import { Injectable, Logger } from '@nestjs/common';
 import { Account } from '@prisma/client';
 import { PrismaService } from 'src/infrastructure/prisma/prisma.service';
 import { mapDbEntityToDomainEntity } from './mapper';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class AccountRepository {
@@ -52,15 +53,39 @@ export class AccountRepository {
     accountUpdateRequestData: AccountUpdateRequestData,
   ): Promise<Result<Account, AccountRepositoryErrorResponse>> {
     try {
-      const newAccount = (({ id, ...others }) => others)(
-        accountUpdateRequestData,
-      ) as Account;
+      const salt: number = +process.env.PASSWORD_SALT;
+      const hashedNewPw = await bcrypt.hash(
+        accountUpdateRequestData.new_password || '',
+        salt,
+      );
+
+      console.log('within update: ', hashedNewPw);
+
+      const newAccountInfo = accountUpdateRequestData.new_password
+        ? ({
+            id: accountUpdateRequestData.id,
+            username: accountUpdateRequestData.username,
+            password: hashedNewPw,
+            calorie_goal: accountUpdateRequestData.calorie_goal,
+            protein_goal: accountUpdateRequestData.protein_goal,
+            carb_goal: accountUpdateRequestData.carb_goal,
+            fat_goal: accountUpdateRequestData.fat_goal,
+          } as Account)
+        : ({
+            id: accountUpdateRequestData.id,
+            username: accountUpdateRequestData.username,
+            calorie_goal: accountUpdateRequestData.calorie_goal,
+            protein_goal: accountUpdateRequestData.protein_goal,
+            carb_goal: accountUpdateRequestData.carb_goal,
+            fat_goal: accountUpdateRequestData.fat_goal,
+          } as Account);
+
       const updatedEntity = await this.prisma.account.update({
         where: {
           id: accountUpdateRequestData.id,
         },
         data: {
-          ...newAccount,
+          ...newAccountInfo,
         },
       });
 
@@ -111,7 +136,7 @@ export interface AccountCreateRequest {
 export interface AccountUpdateRequestData {
   id: string;
   username: string;
-  password: string;
+  new_password: string;
   calorie_goal: number;
   protein_goal: number;
   carb_goal: number;

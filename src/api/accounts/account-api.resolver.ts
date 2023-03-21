@@ -1,5 +1,8 @@
 import { Result } from '@badrap/result';
-import { InternalServerErrorException } from '@nestjs/common';
+import {
+  InternalServerErrorException,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { Account } from './entities/local-model/account.entity';
@@ -13,7 +16,10 @@ import { GetAllAccountsCommand } from './use-cases/get-all-accounts/get-all-acco
 import { GetAllAccountsErrorResponse } from './use-cases/get-all-accounts/get-all-accounts.handler';
 import { UpdateAccountInput } from './entities/gql-models/update.account-input';
 import { UpdateAccountCommand } from './use-cases/update/update-account.command';
-import { AccountUpdateErrorResponse } from './use-cases/update/update-account.handler';
+import {
+  AccountUpdateErrorResponse,
+  InvalidPassword,
+} from './use-cases/update/update-account.handler';
 import { DeleteAccountCommand } from './use-cases/delete/delete-account.command';
 import { AccountDeleteErrorResponse } from './use-cases/delete/delete-account.handler';
 import { DeleteAccountInput } from './entities/gql-models/delete.account-input';
@@ -32,7 +38,7 @@ export class AccountResolver {
   async createAccount(
     @Args('input') input: CreateAccountInput,
   ): Promise<AccountObjectType> {
-    const salt = 10;
+    const salt: number = +process.env.PASSWORD_SALT;
     const hashedPw = await bcrypt.hash(input.password, salt);
     const result = await this.commandBus.execute<
       CreateAccountCommand,
@@ -93,6 +99,7 @@ export class AccountResolver {
         input.id,
         input.username,
         input.password,
+        input.new_password,
         input.calorie_goal,
         input.protein_goal,
         input.carb_goal,
@@ -104,11 +111,9 @@ export class AccountResolver {
       .map(
         (account) => mapDomainEntityToGqlObjectType(account),
         (err) => {
-          // if (err instanceof NoRecordAvailable) {
-          //   return new NotFoundException(
-          //     "The account item you're trying to update does not exist.",
-          //   );
-          // }
+          if (err instanceof InvalidPassword) {
+            return new UnauthorizedException('Invalid password.');
+          }
           return new InternalServerErrorException();
         },
       )

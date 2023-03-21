@@ -1,4 +1,5 @@
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
+import * as bcrypt from 'bcrypt';
 import {
   AccountRepository,
   AccountUpdateRequestData,
@@ -16,18 +17,25 @@ export class UpdateAccountHandler
       command.id,
     );
 
+    const isValidPassword = await bcrypt.compare(
+      command.password,
+      desiredAccountToUpdate.unwrap().password,
+    );
+
+    if (!isValidPassword) {
+      return Result.err(new InvalidPassword());
+    }
+
     if (desiredAccountToUpdate.isErr) {
       return Result.err(new NoRecordAvailable());
     }
 
+    const newAccountInformation = (({ password, ...others }) => others)(
+      command,
+    ) as AccountUpdateRequestData;
+
     const accountUpdateResult = await this.accountRepository.update({
-      id: command.id,
-      username: command.username,
-      password: command.password,
-      calorie_goal: command.calorie_goal,
-      protein_goal: command.protein_goal,
-      carb_goal: command.carb_goal,
-      fat_goal: command.fat_goal,
+      ...newAccountInformation,
     } as AccountUpdateRequestData);
 
     return accountUpdateResult.map(
@@ -42,3 +50,5 @@ export abstract class AccountUpdateErrorResponse extends Error {}
 export class RepositoryUpdateError extends AccountUpdateErrorResponse {}
 
 export class NoRecordAvailable extends AccountUpdateErrorResponse {}
+
+export class InvalidPassword extends AccountUpdateErrorResponse {}

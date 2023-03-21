@@ -5,6 +5,7 @@ export class UpdateAccountCommand extends AccountMutationCommand {
     public readonly id: string,
     public readonly username: string,
     public readonly password: string,
+    public readonly new_password: string,
     public readonly calorie_goal: number,
     public readonly protein_goal: number,
     public readonly carb_goal: number,

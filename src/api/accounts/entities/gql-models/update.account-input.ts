@@ -13,11 +13,16 @@ export class UpdateAccountInput {
   @IsString()
   username: string;
 
-  //TODO::: Temporary workaround, pre pw validation
-  @Field((_type) => String, { nullable: true })
-  @ValidateIf((input) => input.password !== undefined)
+  @Field()
   @IsString()
+  @IsNotEmpty()
   password: string;
+
+  @Field((_type) => String, { nullable: true })
+  @ValidateIf((input) => input.new_password !== undefined)
+  @Field()
+  @IsString()
+  new_password: string;
 
   @Field((_type) => Number, { nullable: true })
   @ValidateIf((input) => input.calorie_goal !== undefined)

@@ -22,8 +22,6 @@ export class Account {
     checkRule(new StringCannotBeEmptyRule('id', id));
     checkRule(new StringCannotBeEmptyRule('username', username));
     checkRule(new StringCannotBeEmptyRule('password', password));
-    checkRule(new StringCannotBeEmptyRule('calorie_goal', calorie_goal));
-    checkRule(new StringCannotBeEmptyRule('protein_goal', protein_goal));
 
     this._id = id;
     this._username = username;

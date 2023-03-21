@@ -10,7 +10,7 @@ export class DeleteAccountHandler
   async execute(command: DeleteAccountCommand): Promise<any> {
     const accountDeleteResult = await this.accountRepository.delete(command.id);
     return accountDeleteResult.map(
-      (deletedCount) => deletedCount,
+      (deletedAccount) => deletedAccount,
       () => new RepositoryDeleteError(),
     );
   }

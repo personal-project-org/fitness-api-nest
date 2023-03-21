@@ -79,7 +79,7 @@ type Mutation {
   updateAccount(input: UpdateAccountInput!): AccountObjectType!
 
   """Deletes a user account."""
-  deleteAccount(input: DeleteAccountInput!): Float!
+  deleteAccount(input: DeleteAccountInput!): AccountObjectType!
 }
 
 input DeleteExercisesInput {
@@ -151,11 +151,11 @@ input CreateAccountInput {
 input UpdateAccountInput {
   id: String!
   username: String!
-  password: String!
-  calorie_goal: Float!
-  protein_goal: Float!
-  carb_goal: Float!
-  fat_goal: Float!
+  password: String
+  calorie_goal: Float
+  protein_goal: Float
+  carb_goal: Float
+  fat_goal: Float
 }
 
 input DeleteAccountInput {

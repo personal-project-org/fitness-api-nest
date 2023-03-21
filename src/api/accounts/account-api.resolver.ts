@@ -115,7 +115,7 @@ export class AccountResolver {
       .unwrap();
   }
 
-  @Mutation((_returns) => Number, {
+  @Mutation((_returns) => AccountObjectType, {
     name: 'deleteAccount',
     description: 'Deletes a user account.',
   })

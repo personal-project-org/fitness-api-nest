@@ -1,6 +1,6 @@
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
-import { AccountRepository } from '../../repository/Account.repository';
-import { DeleteAccountCommand } from './delete-Account.command';
+import { AccountRepository } from '../../repository/account.repository';
+import { DeleteAccountCommand } from './delete-account.command';
 
 @CommandHandler(DeleteAccountCommand)
 export class DeleteAccountHandler

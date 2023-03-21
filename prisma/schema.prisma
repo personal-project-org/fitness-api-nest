@@ -38,10 +38,10 @@ model Account {
   id                    String @id @default(uuid())
   username              String
   password              String
-  calorie_goal         Int
-  protein_goal          Int
-  carb_goal            Int
-  fat_goal             Int
+  calorie_goal         Int?
+  protein_goal         Int?
+  carb_goal            Int?
+  fat_goal             Int?
 }
 
 model FoodConsumedByUser {

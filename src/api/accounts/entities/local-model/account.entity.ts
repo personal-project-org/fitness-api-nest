@@ -14,10 +14,10 @@ export class Account {
     id: string,
     username: string,
     password: string,
-    calorie_goal: number,
-    protein_goal: number,
-    carb_goal: number,
-    fat_goal: number,
+    calorie_goal?: number,
+    protein_goal?: number,
+    carb_goal?: number,
+    fat_goal?: number,
   ) {
     checkRule(new StringCannotBeEmptyRule('id', id));
     checkRule(new StringCannotBeEmptyRule('username', username));
@@ -26,10 +26,10 @@ export class Account {
     this._id = id;
     this._username = username;
     this._password = password;
-    this._calorie_goal = calorie_goal;
-    this._protein_goal = protein_goal;
-    this._carb_goal = carb_goal;
-    this._fat_goal = fat_goal;
+    this._calorie_goal = calorie_goal || undefined;
+    this._protein_goal = protein_goal || undefined;
+    this._carb_goal = carb_goal || undefined;
+    this._fat_goal = fat_goal || undefined;
   }
 
   public get id(): string {
@@ -41,16 +41,16 @@ export class Account {
   public get password(): string {
     return this._password;
   }
-  public get calorie_goal(): number {
+  public get calorie_goal(): number | undefined {
     return this._calorie_goal;
   }
-  public get protein_goal(): number {
+  public get protein_goal(): number | undefined {
     return this._protein_goal;
   }
-  public get carb_goal(): number {
+  public get carb_goal(): number | undefined {
     return this._carb_goal;
   }
-  public get fat_goal(): number {
+  public get fat_goal(): number | undefined {
     return this._fat_goal;
   }
 }

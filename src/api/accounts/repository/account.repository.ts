@@ -29,7 +29,7 @@ export class AccountRepository {
     }
   }
 
-  async getAllExercises(): Promise<
+  async getAllAccounts(): Promise<
     Result<Account[], AccountRepositoryErrorResponse>
   > {
     try {

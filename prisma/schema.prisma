@@ -45,23 +45,11 @@ model Account {
   fat_goal              Int?
 }
 
-// model FoodConsumedByUser {
-//   id                    String @id @default(uuid())
-//   date                  DateTime
-//   // In case the food is deleted
-//   food                  Json
-
-// }
-
 model CaloricBalanceFactor {
   id                    String @id @default(uuid())
   date                  DateTime
-  //Food or Exercise
   balanceFactorType     String
-  // In case the food is deleted, converting the food objects to Json may be an issue
   foodDetails           Json?
   exerciseDetails       Json?
   caloriesBurned        Int?
-
-
 }

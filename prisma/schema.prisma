@@ -31,8 +31,8 @@ model Set {
   reps              Int
   weight            Int
   date              DateTime
-  exerciseId        String 
-  //TODO: add accountId, getAllSets endpoint
+  exerciseId        String
+  accountId         String 
 }
 
 model Account {

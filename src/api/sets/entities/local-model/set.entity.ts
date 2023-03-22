@@ -8,20 +8,25 @@ export class Set {
   private _weight: number;
   private _date: Date;
   private _exerciseId: string;
+  private _accountId: string;
 
   constructor(
     id: string,
     reps: number,
     exerciseId: string,
+    accountId: string,
     weight?: number,
     date?: Date,
   ) {
     checkRule(new StringCannotBeEmptyRule('id', id));
     checkRule(new IntegerCannotBeEmptyRule('reps', reps));
+    checkRule(new StringCannotBeEmptyRule('accountId', accountId));
+    checkRule(new StringCannotBeEmptyRule('exerciseId', exerciseId));
 
     this._id = id;
     this._reps = reps;
     this._exerciseId = exerciseId;
+    this._accountId = accountId;
     this._weight = weight || 0;
     this._date = date || new Date();
   }
@@ -31,6 +36,9 @@ export class Set {
   }
   public get exerciseId(): string {
     return this._exerciseId;
+  }
+  public get accountId(): string {
+    return this._accountId;
   }
   public get reps(): number {
     return this._reps;

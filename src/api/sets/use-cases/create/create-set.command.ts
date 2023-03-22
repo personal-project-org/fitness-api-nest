@@ -6,6 +6,7 @@ export class CreateSetCommand extends SetMutationCommand {
     public readonly weight: number,
     public readonly date: Date,
     public readonly exerciseId: string,
+    public readonly accountId: string,
   ) {
     super();
   }

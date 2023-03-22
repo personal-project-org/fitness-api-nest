@@ -8,5 +8,6 @@ export const mapDomainEntityToGqlObjectType = (entity: Set): SetObjectType => {
     weight: entity.weight,
     date: entity.date,
     exerciseId: entity.exerciseId,
+    accountId: entity.accountId,
   };
 };

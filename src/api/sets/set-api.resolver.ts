@@ -5,6 +5,7 @@ import { CreateSetInput } from './entities/gql-models/create.set-input';
 import { SetObjectType } from './entities/gql-models/set.object-type';
 import { CreateSetCommand } from './use-cases/create/create-set.command';
 import {
+  AccountNotFoundError,
   ExerciseNotFoundError,
   SetCreateErrorResponse,
 } from './use-cases/create/create-set.handler';
@@ -47,6 +48,7 @@ export class SetResolver {
         input.weight,
         input.date,
         input.exerciseId,
+        input.accountId,
       ),
     );
 
@@ -59,6 +61,10 @@ export class SetResolver {
           if (err instanceof ExerciseNotFoundError) {
             return new NotFoundException(
               'The exercise ID you specified is invalid.',
+            );
+          } else if (err instanceof AccountNotFoundError) {
+            return new NotFoundException(
+              'The account ID you specified is invalid.',
             );
           }
         },

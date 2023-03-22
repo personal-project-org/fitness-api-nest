@@ -111,6 +111,7 @@ export interface SetCreateRequest {
   weight: number;
   date: Date;
   exerciseId: string;
+  accountId: string;
 }
 
 export interface SetUpdateRequestData {

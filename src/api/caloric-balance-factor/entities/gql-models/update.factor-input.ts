@@ -1,58 +1,41 @@
 import { Field, InputType } from '@nestjs/graphql';
-import {
-  IsDate,
-  IsEnum,
-  IsInt,
-  IsNotEmpty,
-  IsNumber,
-  IsString,
-  ValidateIf,
-} from 'class-validator';
+import { IsDate, IsEnum, IsInt, IsString } from 'class-validator';
 import { BalanceFactorType } from '../local-model/factor.entity';
 
 @InputType()
-export class UpdateFactorInput {
-  @Field()
+export class UpdateCaloricBalanceFactorInput {
   @IsString()
-  @IsNotEmpty()
-  accountId: string;
+  id: string;
 
-  @Field()
+  @Field({ nullable: true })
   @IsString()
-  exerciseId: string;
+  exerciseId?: string;
 
-  @Field()
+  @Field({ nullable: true })
   @IsDate()
-  @IsNotEmpty()
-  date: Date;
+  date?: Date;
 
-  @Field()
+  @Field({ nullable: true })
   @IsEnum(BalanceFactorType)
-  @IsNotEmpty()
-  balanceFactorType: string;
+  balanceFactorType?: string;
 
-  @Field()
+  @Field({ nullable: true })
   @IsInt()
-  @IsNotEmpty()
-  caloriesBurned: number;
+  caloriesBurned?: number;
 
-  @Field()
+  @Field({ nullable: true })
   @IsInt()
-  @IsNotEmpty()
-  caloriesConsumed: number;
+  caloriesConsumed?: number;
 
-  @Field()
+  @Field({ nullable: true })
   @IsInt()
-  @IsNotEmpty()
-  protein: number;
+  protein?: number;
 
-  @Field()
+  @Field({ nullable: true })
   @IsInt()
-  @IsNotEmpty()
-  carbs: number;
+  carbs?: number;
 
-  @Field()
+  @Field({ nullable: true })
   @IsInt()
-  @IsNotEmpty()
-  fat: number;
+  fat?: number;
 }

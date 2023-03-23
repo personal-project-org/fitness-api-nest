@@ -16,7 +16,7 @@ export class CreateCaloricBalanceFactor {
   @IsNotEmpty()
   accountId: string;
 
-  @Field()
+  @Field({ nullable: true })
   @IsString()
   exerciseId: string;
 
@@ -30,27 +30,27 @@ export class CreateCaloricBalanceFactor {
   @IsNotEmpty()
   balanceFactorType: string;
 
-  @Field()
+  @Field({ nullable: true })
   @IsInt()
   @IsNotEmpty()
   caloriesBurned: number;
 
-  @Field()
+  @Field({ nullable: true })
   @IsInt()
   @IsNotEmpty()
   caloriesConsumed: number;
 
-  @Field()
+  @Field({ nullable: true })
   @IsInt()
   @IsNotEmpty()
   protein: number;
 
-  @Field()
+  @Field({ nullable: true })
   @IsInt()
   @IsNotEmpty()
   carbs: number;
 
-  @Field()
+  @Field({ nullable: true })
   @IsInt()
   @IsNotEmpty()
   fat: number;

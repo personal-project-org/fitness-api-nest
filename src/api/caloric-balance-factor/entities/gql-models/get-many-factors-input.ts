@@ -10,27 +10,27 @@ import {
 import { BalanceFactorType } from '../local-model/factor.entity';
 
 @InputType()
-export class DeleteCaloricBalanceFactorsInput {
+export class GetCaloricBalanceFactorsInput {
   @Field((_type) => String)
   @IsArray()
   accountId: string;
 
-  @Field((_type) => [String], { nullable: true })
+  @Field((_type) => String, { nullable: true })
   @IsArray()
-  id: string[];
+  exerciseId?: string;
 
   @Field({ nullable: true })
   @ValidateIf((input) => input.endingWith == undefined)
   @IsDate()
-  startingFrom: Date;
+  startingFrom?: Date;
 
   @Field({ nullable: true })
   @ValidateIf((input) => input.startingFrom == undefined)
   @IsDate()
-  endingWith: Date;
+  endingWith?: Date;
 
   @Field({ nullable: true })
   @IsEnum(BalanceFactorType)
   @IsNotEmpty()
-  balanceFactorType: string;
+  balanceFactorType?: string;
 }

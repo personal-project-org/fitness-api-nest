@@ -74,6 +74,43 @@ export class CaloricBalanceFactorRepository {
     }
   }
 
+  //anticipating most problems here
+  //TODO: Test thoroughly
+  async deleteCaloricBalanceFactors(req: DeleteCaloricBalanceFactorsRequest) {
+    try {
+      const entities = await this.prisma.caloricBalanceFactor.deleteMany({
+        where: {
+          OR: [
+            { id: { in: req.ids } },
+            { AND: await this.buildPrismaAndArray(req) },
+          ],
+        },
+      });
+      if (entities) {
+        return Result.ok(entities);
+      }
+      return Result.err(new InvalidState());
+    } catch (e) {
+      this.logger.error(e);
+      return Result.err(new UnknownError());
+    }
+  }
+
+  //TODO: Add corresponding handlers and function in resolver
+  //Not sure what to do with the batchPayload
+  async deleteAllCaloricBalanceFactors() {
+    try {
+      const entities = await this.prisma.caloricBalanceFactor.deleteMany();
+      if (entities) {
+        return Result.ok(entities);
+      }
+      return Result.err(new InvalidState());
+    } catch (e) {
+      this.logger.error(e);
+      return Result.err(new UnknownError());
+    }
+  }
+
   async buildPrismaAndArray(
     req: GetCaloricBalanceFactorsRequest,
   ): Promise<any[]> {
@@ -136,6 +173,17 @@ export interface CaloricBalanceFactorUpdateRequest {
 
 export interface GetCaloricBalanceFactorsRequest {
   accountId: string;
+  exerciseId?: string;
+  startingFrom?: Date;
+  endingWith?: Date;
+  balanceFactorType?: string;
+  // foodDetails?: JSON;
+  // exerciseDetails?: JSON;
+}
+
+export interface DeleteCaloricBalanceFactorsRequest {
+  accountId: string;
+  ids: string[];
   exerciseId?: string;
   startingFrom?: Date;
   endingWith?: Date;

@@ -17,7 +17,7 @@ export class DeleteCaloricBalanceFactorsInput {
 
   @Field((_type) => [String], { nullable: true })
   @IsArray()
-  id: string[];
+  ids: string[];
 
   @Field({ nullable: true })
   @ValidateIf((input) => input.endingWith == undefined)

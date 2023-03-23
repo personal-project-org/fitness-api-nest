@@ -6,7 +6,7 @@ export class CaloricBalanceFactor {
   private _accountId: string;
   private _exerciseId: string;
   private _date: Date;
-  private _balanceFactorType: BalanceFactorType;
+  private _balanceFactorType: string;
   private _foodDetails: JSON;
   private _exerciseDetails: JSON;
   private _caloriesBurned: number;
@@ -20,7 +20,7 @@ export class CaloricBalanceFactor {
     accountId: string,
     exerciseId: string,
     date: Date,
-    balanceFactorType?: number,
+    balanceFactorType?: string,
     foodDetails?: JSON,
     exerciseDetails?: JSON,
     caloriesBurned?: number,
@@ -58,7 +58,7 @@ export class CaloricBalanceFactor {
   public get date(): Date {
     return this._date;
   }
-  public get balanceFactorType(): number | undefined {
+  public get balanceFactorType(): string {
     return this._balanceFactorType;
   }
   public get foodDetails(): JSON | undefined {
@@ -69,6 +69,9 @@ export class CaloricBalanceFactor {
   }
   public get caloriesConsumed(): number | undefined {
     return this._caloriesConsumed;
+  }
+  public get caloriesBurned(): number | undefined {
+    return this._caloriesBurned;
   }
   public get protein(): number | undefined {
     return this._protein;

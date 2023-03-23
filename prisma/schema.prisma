@@ -47,9 +47,15 @@ model Account {
 
 model CaloricBalanceFactor {
   id                    String @id @default(uuid())
+  accountId             String 
+  exerciseId            String?
   date                  DateTime
   balanceFactorType     String
   foodDetails           Json?
   exerciseDetails       Json?
   caloriesBurned        Int?
+  caloriesConsumed      Int?
+  protein               Int?
+  carbs                 Int?
+  fat                   Int?
 }

@@ -10,7 +10,7 @@ import {
 import { BalanceFactorType } from '../local-model/factor.entity';
 
 @InputType()
-export class GetCaloricBalanceFactorsInput {
+export class GetManyCaloricBalanceFactorsInput {
   @Field((_type) => String)
   @IsArray()
   accountId: string;

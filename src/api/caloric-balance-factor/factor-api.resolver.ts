@@ -10,6 +10,7 @@ import { isInstance } from 'class-validator';
 import { CreateCaloricBalanceFactorInput } from './entities/gql-models/create.factor-input';
 import { DeleteCaloricBalanceFactorsInput } from './entities/gql-models/delete-many.factors-input';
 import { CaloricBalanceFactorObjectType } from './entities/gql-models/factor.object-type';
+import { GetCaloricBalanceFactorsInput } from './entities/gql-models/get-factors-input';
 import { mapDomainEntityToGqlObjectType } from './entities/gql-models/mapper';
 import { CreateCaloricBalanceFactorCommand } from './use-cases/create/create-factor.command';
 import { CaloricBalanceFactorCreateErrorResponse } from './use-cases/create/create-factor.handler';
@@ -19,6 +20,7 @@ import {
   ForbiddenDeleteError,
   RepositoryDeleteError,
 } from './use-cases/delete/delete-factor.handler';
+import { GetCaloricBalanceFactorsCommand } from './use-cases/get/get-factors.command';
 
 @Resolver((_of) => CaloricBalanceFactorObjectType)
 export class CaloricBalanceFactorResolver {
@@ -103,6 +105,29 @@ export class CaloricBalanceFactorResolver {
         (caloricBalanceFactor) =>
           mapDomainEntityToGqlObjectType(caloricBalanceFactor),
         (err) => {
+          return new InternalServerErrorException();
+        },
+      )
+      .unwrap();
+  }
+
+  @Query((_returns) => [CaloricBalanceFactorObjectType], {
+    name: 'getCaloricBalanceFactors',
+    description: 'Get caloric balance factors from specified date.',
+  })
+  async getCaloricBalanceFactors(
+    @Args('input') input: GetCaloricBalanceFactorsInput,
+  ): Promise<CaloricBalanceFactorObjectType[]> {
+    const result = await this.queryBus.execute<
+      GetCaloricBalanceFactorsCommand,
+      Result<CaloricBalanceFactor[], CaloricBalanceFactorCreateErrorResponse>
+    >(new GetCaloricBalanceFactorsCommand(input.accountId, input.date));
+
+    return result
+      .map(
+        (caloricBalanceFactor) =>
+          caloricBalanceFactor.map(mapDomainEntityToGqlObjectType),
+        () => {
           return new InternalServerErrorException();
         },
       )

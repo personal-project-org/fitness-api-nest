@@ -60,6 +60,14 @@ type Query {
   getAllFoods: [FoodObjectType!]!
   getAllSets: [SetObjectType!]!
   getAllAccounts: [AccountObjectType!]!
+
+  """Get caloric balance factors from specified date."""
+  getCaloricBalanceFactors(input: GetCaloricBalanceFactorsInput!): [CaloricBalanceFactorObjectType!]!
+}
+
+input GetCaloricBalanceFactorsInput {
+  accountId: String!
+  date: DateTime!
 }
 
 type Mutation {

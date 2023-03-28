@@ -124,8 +124,8 @@ export class CaloricBalanceFactorResolver {
 
     return result
       .map(
-        (deleteAmount) => {
-          return deleteAmount;
+        (count) => {
+          return count;
         },
         (err) => {
           if (err instanceof RepositoryDeleteError) {

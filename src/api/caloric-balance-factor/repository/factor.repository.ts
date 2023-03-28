@@ -83,10 +83,14 @@ export class CaloricBalanceFactorRepository {
     try {
       const entities = await this.prisma.caloricBalanceFactor.deleteMany({
         where: {
-          OR: [
-            { id: { in: req.ids } },
-            { AND: await this.buildPrismaAndArray(req) },
-          ],
+          // OR: [
+          // {
+          id: { in: req.ids },
+          //  },
+          // {
+          AND: await this.buildPrismaAndArray(req),
+          // },
+          // ],
         },
       });
       if (entities) {
@@ -117,7 +121,7 @@ export class CaloricBalanceFactorRepository {
   async buildPrismaAndArray(
     req: GetCaloricBalanceFactorsRequest,
   ): Promise<any[]> {
-    let retVal: [any];
+    let retVal = [];
 
     retVal.push({
       accountId: req.accountId,

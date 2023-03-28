@@ -30,8 +30,10 @@ export class DeleteCaloricBalanceFactorHandler
         balanceFactorType: undefined,
       });
 
+    const count = caloricBalanceFactorDeleteResult.unwrap().count;
+
     return caloricBalanceFactorDeleteResult.map(
-      (createdCaloricBalanceFactor) => createdCaloricBalanceFactor,
+      () => count,
       () => new RepositoryDeleteError(),
     );
   }

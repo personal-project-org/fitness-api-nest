@@ -10,11 +10,10 @@ import {
 @InputType()
 export class GetDailyReportInput {
   @Field()
-  @IsDate()
-  date: Date;
-
-  @Field()
   @IsString()
   @IsNotEmpty()
   accountId: string;
+  @Field()
+  @IsDate()
+  date: Date;
 }

@@ -21,10 +21,12 @@ import { DeleteCaloricBalanceFactorHandler } from 'src/api/caloric-balance-facto
 import { GetAllCaloricBalanceFactorsHandler } from 'src/api/caloric-balance-factor/use-cases/get-all/get-all-factors.handler';
 import { GetCaloricBalanceFactorsHandler } from 'src/api/caloric-balance-factor/use-cases/get/get-factors.handler';
 import { UpdateCaloricBalanceFactorHandler } from 'src/api/caloric-balance-factor/use-cases/update/update-factor.handler';
+import { GetDailyReportHandler } from 'src/api/accounts/use-cases/get-daily-report/get-daily-report.handler';
 
 @Module({
   imports: [InfrastructureModule],
   providers: [
+    GetDailyReportHandler,
     CreateCaloricBalanceFactorHandler,
     DeleteCaloricBalanceFactorHandler,
     GetAllCaloricBalanceFactorsHandler,

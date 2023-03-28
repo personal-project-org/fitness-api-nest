@@ -84,7 +84,7 @@ export class AccountResolver {
 
   @Query((_returns) => DailyReportObjectType, { name: 'getDailyReport' })
   async getDailyReport(
-    input: GetDailyReportInput,
+    @Args('input') input: GetDailyReportInput,
   ): Promise<DailyReportObjectType> {
     const result = await this.queryBus.execute<
       GetDailyReportCommand,

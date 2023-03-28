@@ -71,11 +71,16 @@ type Query {
   getAllExercises: [ExerciseObjectType!]!
   getAllFoods: [FoodObjectType!]!
   getAllSets: [SetObjectType!]!
-  getDailyReport: DailyReportObjectType!
+  getDailyReport(input: GetDailyReportInput!): DailyReportObjectType!
   getAllAccounts: [AccountObjectType!]!
 
   """Get caloric balance factors from specified date."""
   getCaloricBalanceFactors(input: GetCaloricBalanceFactorsInput!): [CaloricBalanceFactorObjectType!]!
+}
+
+input GetDailyReportInput {
+  accountId: String!
+  date: DateTime!
 }
 
 input GetCaloricBalanceFactorsInput {

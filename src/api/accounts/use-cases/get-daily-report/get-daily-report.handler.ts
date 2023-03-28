@@ -61,16 +61,27 @@ export class GetDailyReportHandler
     let TtotalFat = 0;
     let calorieTotal = 0;
 
-    caloricBalanceFactors.map((e) => {
-      TcaloriesBurned += e.caloriesBurned;
-      TcaloriesConsumed += e.caloriesConsumed;
-      TtotalProtein += e.protein;
-      TtotalCarbs += e.carbs;
-      TtotalFat += e.fat;
+    caloricBalanceFactors.forEach((e) => {
+      if (e.caloriesBurned) {
+        TcaloriesBurned += e.caloriesBurned;
+      }
+      if (e.caloriesConsumed) {
+        TcaloriesConsumed += e.caloriesConsumed;
+      }
+      if (e.protein) {
+        TtotalProtein += e.protein;
+      }
+      if (e.carbs) {
+        TtotalCarbs += e.carbs;
+      }
+      if (e.fat) {
+        TtotalFat += e.fat;
+      }
     });
+
     calorieTotal = TcaloriesConsumed - TcaloriesBurned;
 
-    return {
+    const retVal = {
       caloriesBurned: TcaloriesBurned,
       caloriesConsumed: TcaloriesConsumed,
       totalProtein: TtotalProtein,
@@ -78,6 +89,10 @@ export class GetDailyReportHandler
       totalFat: TtotalFat,
       calorieTotal,
     } as DailyReportTotal;
+
+    // console.log(JSON.stringify(retVal, null, 2));
+
+    return retVal;
   }
 }
 

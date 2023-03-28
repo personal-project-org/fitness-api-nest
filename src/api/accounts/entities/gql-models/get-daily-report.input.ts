@@ -13,6 +13,7 @@ export class GetDailyReportInput {
   @IsString()
   @IsNotEmpty()
   accountId: string;
+
   @Field()
   @IsDate()
   date: Date;

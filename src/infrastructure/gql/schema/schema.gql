@@ -42,6 +42,19 @@ type AccountObjectType {
   fat_goal: Float
 }
 
+type CaloricBalanceFactorObjectType {
+  id: String!
+  accountId: String!
+  exerciseId: String
+  date: DateTime!
+  balanceFactorType: String!
+  caloriesBurned: Float
+  caloriesConsumed: Float
+  protein: Float
+  carbs: Float
+  fat: Float
+}
+
 type Query {
   getAllExercises: [ExerciseObjectType!]!
   getAllFoods: [FoodObjectType!]!
@@ -81,6 +94,12 @@ type Mutation {
 
   """Deletes a user account."""
   deleteAccount(input: DeleteAccountInput!): AccountObjectType!
+
+  """Creates a new caloricBalanceFactor."""
+  createCaloricBalanceFactor(input: CreateCaloricBalanceFactorInput!): CaloricBalanceFactorObjectType!
+
+  """Removes many caloricBalanceFactors that match a specified criteria."""
+  deleteCaloricBalanceFactors(input: DeleteCaloricBalanceFactorsInput!): Float!
 }
 
 input DeleteExercisesInput {
@@ -164,4 +183,24 @@ input UpdateAccountInput {
 input DeleteAccountInput {
   id: String!
   password: String!
+}
+
+input CreateCaloricBalanceFactorInput {
+  accountId: String!
+  exerciseId: String
+  date: DateTime!
+  balanceFactorType: String!
+  caloriesBurned: Float
+  caloriesConsumed: Float
+  protein: Float
+  carbs: Float
+  fat: Float
+}
+
+input DeleteCaloricBalanceFactorsInput {
+  accountId: String!
+  ids: [String!]
+  startingFrom: DateTime
+  endingWith: DateTime
+  balanceFactorType: String
 }

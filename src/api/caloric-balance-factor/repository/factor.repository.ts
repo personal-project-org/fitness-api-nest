@@ -61,7 +61,10 @@ export class CaloricBalanceFactorRepository {
     try {
       const entities = await this.prisma.caloricBalanceFactor.findMany({
         where: {
-          AND: await this.buildPrismaAndArray(req),
+          OR: [
+            { id: { in: req.ids } },
+            { AND: await this.buildPrismaAndArray(req) },
+          ],
         },
       });
       if (entities) {
@@ -173,6 +176,7 @@ export interface CaloricBalanceFactorUpdateRequest {
 
 export interface GetCaloricBalanceFactorsRequest {
   accountId: string;
+  ids?: string[];
   exerciseId?: string;
   startingFrom?: Date;
   endingWith?: Date;

@@ -43,10 +43,12 @@ model Account {
   protein_goal          Int?
   carb_goal             Int?
   fat_goal              Int?
+  caloricBalanceFactors CaloricBalanceFactor[]
 }
 
 model CaloricBalanceFactor {
   id                    String @id @default(uuid())
+  account               Account @relation(fields: [accountId], references: [id])
   accountId             String 
   exerciseId            String?
   date                  DateTime

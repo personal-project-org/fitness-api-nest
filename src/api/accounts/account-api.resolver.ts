@@ -32,6 +32,10 @@ import {
   InvalidPassword,
 } from './use-cases/delete/delete-account.handler';
 import { DeleteAccountInput } from './entities/gql-models/delete.account-input';
+import { DailyReportObjectType } from './entities/gql-models/daily-report.object-type';
+import { GetDailyReportCommand } from './use-cases/get-daily-report/get-daily-report.command';
+import { GetDailyReportErrorResponse } from './use-cases/get-daily-report/get-daily-report.handler';
+import { GetDailyReportInput } from './entities/gql-models/get-daily-report.input';
 
 @Resolver((_of) => AccountObjectType)
 export class AccountResolver {
@@ -72,6 +76,27 @@ export class AccountResolver {
               'The username you specified is unavailable.',
             );
           }
+          return new InternalServerErrorException();
+        },
+      )
+      .unwrap();
+  }
+
+  @Query((_returns) => DailyReportObjectType, { name: 'getDailyReport' })
+  async getDailyReport(
+    input: GetDailyReportInput,
+  ): Promise<DailyReportObjectType> {
+    const result = await this.queryBus.execute<
+      GetDailyReportCommand,
+      Result<DailyReportObjectType, GetDailyReportErrorResponse>
+    >(new GetDailyReportCommand(input.date, input.accountId));
+
+    return result
+      .map(
+        (dailyReportObject) => {
+          return dailyReportObject;
+        },
+        () => {
           return new InternalServerErrorException();
         },
       )

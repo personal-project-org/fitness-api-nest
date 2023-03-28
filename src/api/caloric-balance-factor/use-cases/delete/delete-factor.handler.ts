@@ -14,6 +14,7 @@ export class DeleteCaloricBalanceFactorHandler
       await this.caloricBalanceFactorRepository.getCaloricBalanceFactors({
         accountId: command.accountId,
         ids: command.ids,
+        date: undefined,
       });
 
     if (!selectedCaloricBalanceFactor) {

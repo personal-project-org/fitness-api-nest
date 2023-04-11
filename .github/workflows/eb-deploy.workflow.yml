@@ -37,7 +37,7 @@ jobs:
             ${{ runner.os }}-node-
 
       - name: Installing NPM
-        run: npm install --legacy-peer-deps && console.log(${{ secrets.ACCESS_KEY_ID }})
+        run: npm install --legacy-peer-deps
 
       # Linting Too Strict - Removed
       # - name: Linting check

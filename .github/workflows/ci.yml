@@ -6,7 +6,6 @@ on:
   push:
     branches:
       - main
-  workflow_dispatch
 
 jobs:
   dev-deploy:
@@ -22,6 +21,6 @@ jobs:
           cache: 'npm'
       - name: Clean Install
         run: npm ci --legacy-peer-deps
-      # TODO: Tests can be ran within the workflow, but not the API itself 
+      # TODO: Tests can be ran within the workflow, but not the API itself
       # - name: Start Api
       #   run: npm run start:bad

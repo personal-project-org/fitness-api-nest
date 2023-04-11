@@ -17,6 +17,7 @@
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "npm run start:dev",
     "start:dev": "export NODE_ENV=development && npm run db:shutdown && npm run db:up && sleep 1 && prisma migrate dev && nest start --watch --debug",
+    "start:nowipe": "export NODE_ENV=development && sleep 1 && prisma migrate dev && nest start --watch --debug",
     "timeout": "sleep 2",
     "start:prod": "node dist/src/main",
     "start:prod2": "nest start --watch --debug",

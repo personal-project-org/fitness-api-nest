@@ -16,4 +16,7 @@ export class SetObjectType {
 
   @Field()
   exerciseId: string;
+
+  @Field()
+  accountId: string;
 }

@@ -6,6 +6,7 @@ export const mapDbEntityToDomainEntity = (entity: SetsPrisma): Set => {
     entity.id,
     entity.reps,
     entity.exerciseId,
+    entity.accountId,
     entity.weight,
     entity.date,
   );

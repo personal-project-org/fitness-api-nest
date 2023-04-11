@@ -28,4 +28,9 @@ export class CreateSetInput {
   @IsString()
   @IsNotEmpty()
   exerciseId: string;
+
+  @Field()
+  @IsString()
+  @IsNotEmpty()
+  accountId: string;
 }

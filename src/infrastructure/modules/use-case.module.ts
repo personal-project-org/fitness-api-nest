@@ -16,10 +16,22 @@ import { CreateAccountHandler } from 'src/api/accounts/use-cases/create/create-a
 import { DeleteAccountHandler } from 'src/api/accounts/use-cases/delete/delete-account.handler';
 import { UpdateAccountHandler } from 'src/api/accounts/use-cases/update/update-account.handler';
 import { GetAllAccountsHandler } from 'src/api/accounts/use-cases/get-all-accounts/get-all-accounts.handler';
+import { CreateCaloricBalanceFactorHandler } from 'src/api/caloric-balance-factor/use-cases/create/create-factor.handler';
+import { DeleteCaloricBalanceFactorHandler } from 'src/api/caloric-balance-factor/use-cases/delete/delete-factor.handler';
+import { GetAllCaloricBalanceFactorsHandler } from 'src/api/caloric-balance-factor/use-cases/get-all/get-all-factors.handler';
+import { GetCaloricBalanceFactorsHandler } from 'src/api/caloric-balance-factor/use-cases/get/get-factors.handler';
+import { UpdateCaloricBalanceFactorHandler } from 'src/api/caloric-balance-factor/use-cases/update/update-factor.handler';
+import { GetDailyReportHandler } from 'src/api/accounts/use-cases/get-daily-report/get-daily-report.handler';
 
 @Module({
   imports: [InfrastructureModule],
   providers: [
+    GetDailyReportHandler,
+    CreateCaloricBalanceFactorHandler,
+    DeleteCaloricBalanceFactorHandler,
+    GetAllCaloricBalanceFactorsHandler,
+    GetCaloricBalanceFactorsHandler,
+    UpdateCaloricBalanceFactorHandler,
     CreateAccountHandler,
     DeleteAccountHandler,
     GetAllAccountsHandler,

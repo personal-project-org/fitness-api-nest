@@ -1,4 +1,5 @@
 import { Module } from '@nestjs/common';
+import { CaloricBalanceFactorRepository } from 'src/api/caloric-balance-factor/repository/factor.repository';
 import { AccountRepository } from '../../api/accounts/repository/account.repository';
 import { ExerciseRepository } from '../../api/exercises/repository/exercise.repository';
 import { FoodRepository } from '../../api/food/repository/food.repository';
@@ -12,6 +13,7 @@ import { PrismaService } from './prisma.service';
     ExerciseRepository,
     SetRepository,
     AccountRepository,
+    CaloricBalanceFactorRepository,
   ],
   exports: [
     PrismaService,
@@ -19,6 +21,7 @@ import { PrismaService } from './prisma.service';
     ExerciseRepository,
     SetRepository,
     AccountRepository,
+    CaloricBalanceFactorRepository,
   ],
 })
 export class PrismaModule {}

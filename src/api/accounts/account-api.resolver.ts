@@ -23,14 +23,19 @@ import { UpdateAccountInput } from './entities/gql-models/update.account-input';
 import { UpdateAccountCommand } from './use-cases/update/update-account.command';
 import {
   AccountUpdateErrorResponse,
-  InvalidPassword,
+  InvalidPassword as InvalidPasswordUpdate,
 } from './use-cases/update/update-account.handler';
 import { DeleteAccountCommand } from './use-cases/delete/delete-account.command';
 import {
   AccountDeleteErrorResponse,
   NoRecordAvailable,
+  InvalidPassword,
 } from './use-cases/delete/delete-account.handler';
 import { DeleteAccountInput } from './entities/gql-models/delete.account-input';
+import { DailyReportObjectType } from './entities/gql-models/daily-report.object-type';
+import { GetDailyReportCommand } from './use-cases/get-daily-report/get-daily-report.command';
+import { GetDailyReportErrorResponse } from './use-cases/get-daily-report/get-daily-report.handler';
+import { GetDailyReportInput } from './entities/gql-models/get-daily-report.input';
 
 @Resolver((_of) => AccountObjectType)
 export class AccountResolver {
@@ -71,6 +76,27 @@ export class AccountResolver {
               'The username you specified is unavailable.',
             );
           }
+          return new InternalServerErrorException();
+        },
+      )
+      .unwrap();
+  }
+
+  @Query((_returns) => DailyReportObjectType, { name: 'getDailyReport' })
+  async getDailyReport(
+    @Args('input') input: GetDailyReportInput,
+  ): Promise<DailyReportObjectType> {
+    const result = await this.queryBus.execute<
+      GetDailyReportCommand,
+      Result<DailyReportObjectType, GetDailyReportErrorResponse>
+    >(new GetDailyReportCommand(input.date, input.accountId));
+
+    return result
+      .map(
+        (dailyReportObject) => {
+          return dailyReportObject;
+        },
+        () => {
           return new InternalServerErrorException();
         },
       )
@@ -124,7 +150,7 @@ export class AccountResolver {
       .map(
         (account) => mapDomainEntityToGqlObjectType(account),
         (err) => {
-          if (err instanceof InvalidPassword) {
+          if (err instanceof InvalidPasswordUpdate) {
             return new UnauthorizedException('Invalid password.');
           } else if (err instanceof NoRecordAvailable) {
             return new NotFoundException(

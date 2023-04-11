@@ -15,6 +15,7 @@ type SetObjectType {
   weight: Float!
   date: DateTime!
   exerciseId: String!
+  accountId: String!
 }
 
 """
@@ -35,17 +36,56 @@ type AccountObjectType {
   id: String!
   username: String!
   password: String!
-  calorie_goal: Float!
-  protein_goal: Float!
-  carb_goal: Float!
-  fat_goal: Float!
+  calorie_goal: Float
+  protein_goal: Float
+  carb_goal: Float
+  fat_goal: Float
+}
+
+type DailyReportObjectType {
+  username: String!
+  accountId: String!
+  date: DateTime!
+  caloriesBurned: Float!
+  caloriesConsumed: Float!
+  calorieTotal: Float!
+  totalProtein: Float!
+  totalCarbs: Float!
+  totalFat: Float!
+}
+
+type CaloricBalanceFactorObjectType {
+  id: String!
+  accountId: String!
+  exerciseId: String
+  date: DateTime!
+  balanceFactorType: String!
+  caloriesBurned: Float
+  caloriesConsumed: Float
+  protein: Float
+  carbs: Float
+  fat: Float
 }
 
 type Query {
   getAllExercises: [ExerciseObjectType!]!
   getAllFoods: [FoodObjectType!]!
   getAllSets: [SetObjectType!]!
+  getDailyReport(input: GetDailyReportInput!): DailyReportObjectType!
   getAllAccounts: [AccountObjectType!]!
+
+  """Get caloric balance factors from specified date."""
+  getCaloricBalanceFactors(input: GetCaloricBalanceFactorsInput!): [CaloricBalanceFactorObjectType!]!
+}
+
+input GetDailyReportInput {
+  accountId: String!
+  date: DateTime!
+}
+
+input GetCaloricBalanceFactorsInput {
+  accountId: String!
+  date: DateTime!
 }
 
 type Mutation {
@@ -80,6 +120,12 @@ type Mutation {
 
   """Deletes a user account."""
   deleteAccount(input: DeleteAccountInput!): AccountObjectType!
+
+  """Creates a new caloricBalanceFactor."""
+  createCaloricBalanceFactor(input: CreateCaloricBalanceFactorInput!): CaloricBalanceFactorObjectType!
+
+  """Removes many caloricBalanceFactors that match a specified criteria."""
+  deleteCaloricBalanceFactors(input: DeleteCaloricBalanceFactorsInput!): Float!
 }
 
 input DeleteExercisesInput {
@@ -125,6 +171,7 @@ input CreateSetInput {
   weight: Float
   date: DateTime!
   exerciseId: String!
+  accountId: String!
 }
 
 input UpdateSetInput {
@@ -150,7 +197,7 @@ input CreateAccountInput {
 
 input UpdateAccountInput {
   id: String!
-  username: String!
+  username: String
   password: String!
   new_password: String
   calorie_goal: Float
@@ -162,4 +209,24 @@ input UpdateAccountInput {
 input DeleteAccountInput {
   id: String!
   password: String!
+}
+
+input CreateCaloricBalanceFactorInput {
+  accountId: String!
+  exerciseId: String
+  date: DateTime!
+  balanceFactorType: String!
+  caloriesBurned: Float
+  caloriesConsumed: Float
+  protein: Float
+  carbs: Float
+  fat: Float
+}
+
+input DeleteCaloricBalanceFactorsInput {
+  accountId: String!
+  ids: [String!]
+  startingFrom: DateTime
+  endingWith: DateTime
+  balanceFactorType: String
 }

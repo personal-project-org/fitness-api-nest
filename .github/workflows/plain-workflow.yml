@@ -1,8 +1,6 @@
-name: CI
+name: Plain-Workflow-Name
 
 on:
-  pull_request:
-    types: [opened, synchronize, reopened, closed]
   push:
     branches:
       - main
@@ -19,8 +17,9 @@ jobs:
         with:
           node-version: '16'
           cache: 'npm'
-      - name: Clean Install
-        run: npm ci --legacy-peer-deps
-      # TODO: Tests can be ran within the workflow, but not the API itself
-      # - name: Start Api
-      #   run: npm run start:bad
+      - name: Linting check
+        run: npm run lint
+      - name: Building application
+        run: npm run build
+      - name: Build Success
+        run: echo App built successfully.

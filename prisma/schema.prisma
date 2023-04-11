@@ -53,7 +53,9 @@ model CaloricBalanceFactor {
   exerciseId            String?
   date                  DateTime
   balanceFactorType     String
-  foodDetails           Json?
+  //Remove foodDetails, exerciseDetails, protein, carb, fat
+  //Include serving size/portion size, which could be used to calculate PCF
+  foodDetails           Json? 
   exerciseDetails       Json?
   caloriesBurned        Int?
   caloriesConsumed      Int?

@@ -65,11 +65,11 @@ jobs:
       - name: Beanstalk Deploy for app
         uses: einaregilsson/beanstalk-deploy@v16
         with:
-          aws_access_key: ${{secrets.ACCESS_KEY_ID}}
-          aws_secret_key: ${{secrets.SECRET_ACCESS_KEY}}
+          aws_access_key: ${{ secrets.ACCESS_KEY_ID }}
+          aws_secret_key: ${{ secrets.SECRET_ACCESS_KEY }}
           application_name: fit-api
           environment_name: fit-api-env-2
-          region: us-east-2
+          region: us-east-1
           version_label: 'e-learn-${{ steps.format-time.outputs.replaced }}'
           deployment_package: deploy.zip
 

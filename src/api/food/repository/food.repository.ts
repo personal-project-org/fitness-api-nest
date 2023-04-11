@@ -47,7 +47,7 @@ export class FoodRepository {
 
   async deleteMany(
     ids: string[],
-  ): Promise<Result<Number, FoodRepositoryErrorResponse>> {
+  ): Promise<Result<number, FoodRepositoryErrorResponse>> {
     try {
       const deletedEntityCount = await this.prisma.food.deleteMany({
         where: {

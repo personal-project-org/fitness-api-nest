@@ -37,14 +37,14 @@ import { GetDailyReportCommand } from './use-cases/get-daily-report/get-daily-re
 import { GetDailyReportErrorResponse } from './use-cases/get-daily-report/get-daily-report.handler';
 import { GetDailyReportInput } from './entities/gql-models/get-daily-report.input';
 
-@Resolver((_of) => AccountObjectType)
+@Resolver(() => AccountObjectType)
 export class AccountResolver {
   constructor(
     private readonly commandBus: CommandBus,
     private readonly queryBus: QueryBus,
   ) {}
 
-  @Mutation((_returns) => AccountObjectType, {
+  @Mutation(() => AccountObjectType, {
     name: 'createAccount',
     description: 'Registers a new user account.',
   })
@@ -82,7 +82,7 @@ export class AccountResolver {
       .unwrap();
   }
 
-  @Query((_returns) => DailyReportObjectType, { name: 'getDailyReport' })
+  @Query(() => DailyReportObjectType, { name: 'getDailyReport' })
   async getDailyReport(
     @Args('input') input: GetDailyReportInput,
   ): Promise<DailyReportObjectType> {
@@ -103,7 +103,7 @@ export class AccountResolver {
       .unwrap();
   }
 
-  @Query((_returns) => [AccountObjectType], { name: 'getAllAccounts' })
+  @Query(() => [AccountObjectType], { name: 'getAllAccounts' })
   async getAllAccounts(): Promise<AccountObjectType[]> {
     const result = await this.queryBus.execute<
       GetAllAccountsCommand,
@@ -123,7 +123,7 @@ export class AccountResolver {
       .unwrap();
   }
 
-  @Mutation((_returns) => AccountObjectType, {
+  @Mutation(() => AccountObjectType, {
     name: 'updateAccount',
     description: 'Updates an account.',
   })
@@ -163,7 +163,7 @@ export class AccountResolver {
       .unwrap();
   }
 
-  @Mutation((_returns) => AccountObjectType, {
+  @Mutation(() => AccountObjectType, {
     name: 'deleteAccount',
     description: 'Deletes a user account.',
   })

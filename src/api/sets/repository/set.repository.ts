@@ -74,7 +74,7 @@ export class SetRepository {
 
   async deleteMany(
     id: string[],
-  ): Promise<Result<Number, SetRepositoryErrorResponse>> {
+  ): Promise<Result<number, SetRepositoryErrorResponse>> {
     try {
       const deletedEntityCount = await this.prisma.set.deleteMany({
         where: {

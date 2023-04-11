@@ -3,7 +3,7 @@ import { IRule } from './rule.check';
 export class ArrayCannotBeEmptyRule implements IRule {
   constructor(
     private readonly arrayName: string,
-    private readonly actualArray: Number[],
+    private readonly actualArray: number[],
   ) {}
 
   isBroken(): boolean {

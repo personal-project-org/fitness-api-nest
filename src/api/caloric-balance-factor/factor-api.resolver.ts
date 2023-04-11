@@ -144,7 +144,7 @@ export class CaloricBalanceFactorResolver {
   ): Promise<any> {
     const result = await this.commandBus.execute<
       DeleteCaloricBalanceFactorCommand,
-      Result<Number, CaloricBalanceFactorDeleteErrorResponse>
+      Result<number, CaloricBalanceFactorDeleteErrorResponse>
     >(new DeleteCaloricBalanceFactorCommand(input.accountId, input.ids));
 
     return result

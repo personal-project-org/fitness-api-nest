@@ -57,7 +57,7 @@ export class ExerciseResolver {
   ): Promise<any> {
     const result = await this.commandBus.execute<
       DeleteExerciseCommand,
-      Result<Number, ExerciseDeleteErrorResponse>
+      Result<number, ExerciseDeleteErrorResponse>
     >(new DeleteExerciseCommand(input.ids));
 
     return result

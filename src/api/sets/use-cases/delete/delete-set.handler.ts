@@ -11,7 +11,7 @@ export class DeleteSetHandler implements ICommandHandler<DeleteSetCommand> {
   constructor(private readonly setRepository: SetRepository) {}
   async execute(
     command: DeleteSetCommand,
-  ): Promise<Result<Number, SetRepositoryErrorResponse>> {
+  ): Promise<Result<number, SetRepositoryErrorResponse>> {
     const foodDeleteResult = await this.setRepository.deleteMany(command.ids);
     return foodDeleteResult.map(
       (deletedCount) => deletedCount,

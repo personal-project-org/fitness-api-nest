@@ -121,10 +121,10 @@ export class SetResolver {
   }
 
   @Mutation((_returns) => Number, { name: 'deleteSets' })
-  async deleteSets(@Args('input') input: DeleteSetInput): Promise<Number> {
+  async deleteSets(@Args('input') input: DeleteSetInput): Promise<number> {
     const deletedSet = await this.commandBus.execute<
       DeleteSetCommand,
-      Result<Number, SetDeleteErrorResponse>
+      Result<number, SetDeleteErrorResponse>
     >(new DeleteSetCommand(input.ids));
 
     return deletedSet

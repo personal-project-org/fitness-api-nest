@@ -119,7 +119,7 @@ export class CaloricBalanceFactorRepository {
   async buildPrismaAndArray(
     req: GetCaloricBalanceFactorsRequest,
   ): Promise<any[]> {
-    let retVal = [];
+    const retVal = [];
 
     retVal.push({
       accountId: req.accountId,

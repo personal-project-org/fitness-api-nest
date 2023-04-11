@@ -1,6 +1,4 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { UseCaseModule } from './infrastructure/modules/use-case.module';
 import { InfrastructureModule } from './infrastructure/modules/infrastructure.module';
 import { ApiModule } from './infrastructure/modules/api.module';

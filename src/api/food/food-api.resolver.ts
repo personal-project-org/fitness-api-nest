@@ -80,7 +80,7 @@ export class FoodResolver {
   async deleteFoods(@Args('input') input: DeleteFoodInput): Promise<any> {
     const result = await this.commandBus.execute<
       DeleteFoodCommand,
-      Result<Number, FoodDeleteErrorResponse>
+      Result<number, FoodDeleteErrorResponse>
     >(new DeleteFoodCommand(input.ids));
 
     return result

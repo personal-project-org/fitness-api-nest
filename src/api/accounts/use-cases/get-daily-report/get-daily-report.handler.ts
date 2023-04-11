@@ -34,7 +34,7 @@ export class GetDailyReportHandler
       return Result.err(new CaloricBalanceFactorRepositoryError());
     }
 
-    let dailyReportTotal = this.factorsArrayToDailyReportTotal(
+    const dailyReportTotal = this.factorsArrayToDailyReportTotal(
       caloricBalanceFactorsFromDate.unwrap(),
     );
 

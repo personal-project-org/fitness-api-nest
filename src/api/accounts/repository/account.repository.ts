@@ -1,7 +1,7 @@
 import { Result } from '@badrap/result';
 import { Injectable, Logger } from '@nestjs/common';
 import { Account } from '@prisma/client';
-import { PrismaService } from 'src/infrastructure/prisma/prisma.service';
+import { PrismaService } from '../../../infrastructure/prisma/prisma.service';
 import { mapDbEntityToDomainEntity } from './mapper';
 import * as bcrypt from 'bcrypt';
 

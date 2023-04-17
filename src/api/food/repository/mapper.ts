@@ -1,5 +1,5 @@
 import { Food as FoodItems } from '@prisma/client';
-import { Food } from 'src/api/food/entities/local-model/food.entity';
+import { Food } from '../../food/entities/local-model/food.entity';
 
 export const mapDbEntityToDomainEntity = (entity: FoodItems): Food => {
   return new Food(

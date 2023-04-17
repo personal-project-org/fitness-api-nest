@@ -38,22 +38,68 @@ describe('FoodRepository', () => {
         fats: '50',
       };
       const foodCreateResult = await foodRepository.create(foodCreateRequest);
+      const createdFood = foodCreateResult.unwrap();
       expect(foodCreateResult).toBeTruthy();
       expect(foodCreateResult.isOk).toBeTruthy();
 
       const foodFindResult = await prisma.food.findUnique({
         where: {
-          name: 'Soup',
+          id: createdFood.id,
         },
       });
 
-      const createdFood = foodCreateResult.unwrap();
-
+      expect(foodFindResult).toBeTruthy();
       expect(createdFood.name).toEqual('Soup');
       expect(createdFood.calories).toEqual('100');
       expect(createdFood.protein).toEqual('3');
       expect(createdFood.carbs).toEqual('27');
       expect(createdFood.fats).toEqual('50');
     });
+  });
+
+  describe('getAllFoods', async () => {
+    it('Should return all foods stored in the repository.', async () => {
+      const foodCreateRequest: FoodCreateRequest[] = [
+        {
+          name: 'Soup',
+          calories: '100',
+          protein: '3',
+          carbs: '27',
+          fats: '50',
+        },
+        {
+          name: 'Cake',
+          calories: '200',
+          protein: '2',
+          carbs: '273',
+          fats: '90',
+        },
+        {
+          name: 'Chicken Breast',
+          calories: '200',
+          protein: '29',
+          carbs: '9',
+          fats: '5',
+        },
+      ];
+
+      foodCreateRequest.map(async (e) => await foodRepository.create(e));
+      const getAllResult = (await foodRepository.getAllFoods()).unwrap();
+      expect(getAllResult).toBeTruthy();
+      expect(getAllResult).toHaveLength(3);
+
+      getAllResult.map((e) => {
+        let { id: _, ...rest } = e;
+        console.log(rest);
+      });
+    });
+  });
+
+  describe('deleteFoods', async () => {
+    it('Should delete foods within a specified date range.', async () => {});
+  });
+
+  describe('updateFood', async () => {
+    it('Should update a food name and all other fields', async () => {});
   });
 });

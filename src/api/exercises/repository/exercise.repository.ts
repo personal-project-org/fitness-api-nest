@@ -114,8 +114,6 @@ export interface ExerciseCreateRequest {
   name: string;
   type: string;
   body_part: string;
-  reps: number[];
-  weight: number[];
 }
 
 export interface ExerciseUpdateRequestData {

@@ -1,3 +1,4 @@
+import * as request from 'supertest';
 import { Test, TestingModule } from '@nestjs/testing';
 import { PrismaModule } from '../../src/infrastructure/prisma/prisma.module';
 import { PrismaService } from '../../src/infrastructure/prisma/prisma.service';
@@ -13,6 +14,7 @@ import {
   CaloricBalanceFactorRepository,
 } from '../../src/api/caloric-balance-factor/repository/factor.repository';
 import { INestApplication } from '@nestjs/common';
+import { AppModule } from '../../src/app.module';
 
 describe('AccountRepository', () => {
   let app: INestApplication;
@@ -25,7 +27,7 @@ describe('AccountRepository', () => {
 
   beforeAll(async () => {
     module = await Test.createTestingModule({
-      imports: [PrismaModule, AccountApiModule],
+      imports: [AppModule],
     }).compile();
 
     module = await module.init();
@@ -114,6 +116,22 @@ describe('AccountRepository', () => {
             },
           ];
 
+        const queryString = `query {
+                  getDailyReport(input:{
+                      accountId: "${accountId}",
+                      date: "2019-01-16T00:00:00.000"
+                  }){
+                      username,
+                      accountId,
+                      date,
+                      caloriesBurned,
+                      caloriesConsumed,
+                      calorieTotal,
+                      totalProtein,
+                      totalCarbs,
+                      totalFat }
+                }`;
+
         await caloricBalanceFactorRepository.create(
           caloricBalanceFactorRequests[0],
         );
@@ -132,6 +150,20 @@ describe('AccountRepository', () => {
         ).unwrap();
 
         expect(confirmArr).toHaveLength(4);
+
+        console.log(app.getHttpServer());
+
+        return (
+          request(app.getHttpServer())
+            .post('/graphql')
+            .send({
+              query: queryString,
+            })
+            // .expect(200)
+            .then((res) => {
+              console.log(JSON.stringify(res, null, 2));
+            })
+        );
 
         //Create 4 Balance Factors, 1 Exercise Type Associated with the account
         //Get Daily report associated with previously specified date and account

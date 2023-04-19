@@ -12,16 +12,16 @@ import { CreateSetHandler } from '../../api/sets/use-cases/create/create-set.han
 import { DeleteSetHandler } from '../../api/sets/use-cases/delete/delete-set.handler';
 import { GetAllSetsHandler } from '../../api/sets/use-cases/get-all-sets/get-all-sets.handler';
 import { UpdateSetHandler } from '../../api/sets/use-cases/update/update-set.command';
-import { CreateAccountHandler } from 'src/api/accounts/use-cases/create/create-account.handler';
-import { DeleteAccountHandler } from 'src/api/accounts/use-cases/delete/delete-account.handler';
-import { UpdateAccountHandler } from 'src/api/accounts/use-cases/update/update-account.handler';
-import { GetAllAccountsHandler } from 'src/api/accounts/use-cases/get-all-accounts/get-all-accounts.handler';
-import { CreateCaloricBalanceFactorHandler } from 'src/api/caloric-balance-factor/use-cases/create/create-factor.handler';
-import { DeleteCaloricBalanceFactorHandler } from 'src/api/caloric-balance-factor/use-cases/delete/delete-factor.handler';
-import { GetAllCaloricBalanceFactorsHandler } from 'src/api/caloric-balance-factor/use-cases/get-all/get-all-factors.handler';
-import { GetCaloricBalanceFactorsHandler } from 'src/api/caloric-balance-factor/use-cases/get/get-factors.handler';
-import { UpdateCaloricBalanceFactorHandler } from 'src/api/caloric-balance-factor/use-cases/update/update-factor.handler';
-import { GetDailyReportHandler } from 'src/api/accounts/use-cases/get-daily-report/get-daily-report.handler';
+import { CreateAccountHandler } from '../../api/accounts/use-cases/create/create-account.handler';
+import { DeleteAccountHandler } from '../../api/accounts/use-cases/delete/delete-account.handler';
+import { UpdateAccountHandler } from '../../api/accounts/use-cases/update/update-account.handler';
+import { GetAllAccountsHandler } from '../../api/accounts/use-cases/get-all-accounts/get-all-accounts.handler';
+import { CreateCaloricBalanceFactorHandler } from '../../api/caloric-balance-factor/use-cases/create/create-factor.handler';
+import { DeleteCaloricBalanceFactorHandler } from '../../api/caloric-balance-factor/use-cases/delete/delete-factor.handler';
+import { GetAllCaloricBalanceFactorsHandler } from '../../api/caloric-balance-factor/use-cases/get-all/get-all-factors.handler';
+import { GetCaloricBalanceFactorsHandler } from '../../api/caloric-balance-factor/use-cases/get/get-factors.handler';
+import { UpdateCaloricBalanceFactorHandler } from '../../api/caloric-balance-factor/use-cases/update/update-factor.handler';
+import { GetDailyReportHandler } from '../../api/accounts/use-cases/get-daily-report/get-daily-report.handler';
 
 @Module({
   imports: [InfrastructureModule],

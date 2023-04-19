@@ -2,7 +2,7 @@ import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import {
   FoodCreateRequest,
   FoodRepository,
-} from 'src/api/food/repository/food.repository';
+} from '../../repository/food.repository';
 import { CreateFoodCommand } from './create-food.command';
 
 @CommandHandler(CreateFoodCommand)

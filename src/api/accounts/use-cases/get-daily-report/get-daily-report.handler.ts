@@ -1,7 +1,7 @@
 import { Result } from '@badrap/result';
 import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
 import { CaloricBalanceFactor } from '@prisma/client';
-import { CaloricBalanceFactorRepository } from 'src/api/caloric-balance-factor/repository/factor.repository';
+import { CaloricBalanceFactorRepository } from '../../../caloric-balance-factor/repository/factor.repository';
 import { DailyReportObjectType } from '../../entities/gql-models/daily-report.object-type';
 import { AccountRepository } from '../../repository/account.repository';
 import { GetDailyReportCommand } from './get-daily-report.command';

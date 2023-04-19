@@ -72,10 +72,10 @@ describe('AccountRepository', () => {
           await accountRepository.create(accountCreateRequest)
         ).unwrap();
 
+        expect(accountCreateResult).toBeTruthy();
+
         const accountId = accountCreateResult.id;
         const date = new Date('2019-01-16T00:00:00.000');
-
-        expect(accountCreateResult).toBeTruthy();
 
         const caloricBalanceFactorRequests: CaloricBalanceFactorCreateRequest[] =
           [
@@ -111,11 +111,27 @@ describe('AccountRepository', () => {
               date: date,
               balanceFactorType: 'Exercise',
               caloriesBurned: 200,
-              protein: 160,
-              carbs: 120,
-              fat: 20,
             },
           ];
+
+        await caloricBalanceFactorRepository.create(
+          caloricBalanceFactorRequests[0],
+        );
+        await caloricBalanceFactorRepository.create(
+          caloricBalanceFactorRequests[1],
+        );
+        await caloricBalanceFactorRepository.create(
+          caloricBalanceFactorRequests[2],
+        );
+        await caloricBalanceFactorRepository.create(
+          caloricBalanceFactorRequests[3],
+        );
+
+        const balanceFactorArray = (
+          await caloricBalanceFactorRepository.getAllCaloricBalanceFactors()
+        ).unwrap();
+
+        expect(balanceFactorArray).toHaveLength(4);
 
         const queryString = `query {
                   getDailyReport(input:{
@@ -133,26 +149,12 @@ describe('AccountRepository', () => {
                       totalFat }
                 }`;
 
-        await caloricBalanceFactorRepository.create(
-          caloricBalanceFactorRequests[0],
-        );
-        await caloricBalanceFactorRepository.create(
-          caloricBalanceFactorRequests[1],
-        );
-        await caloricBalanceFactorRepository.create(
-          caloricBalanceFactorRequests[2],
-        );
-        await caloricBalanceFactorRepository.create(
-          caloricBalanceFactorRequests[3],
-        );
-
-        const confirmArr = (
-          await caloricBalanceFactorRepository.getAllCaloricBalanceFactors()
-        ).unwrap();
-
-        expect(confirmArr).toHaveLength(4);
-
-        console.log(JSON.stringify(confirmArr, null, 2));
+        let expectedTotals = {
+          calories: 700,
+          protein: 260,
+          carbs: 210,
+          fat: 35,
+        };
 
         return request(app.getHttpServer())
           .post('/graphql')
@@ -161,31 +163,14 @@ describe('AccountRepository', () => {
           })
           .expect(200)
           .then((res) => {
-            console.log(JSON.stringify(res, null, 2));
+            let parsedReturn = JSON.parse(res.text);
+            let report = parsedReturn.data.getDailyReport;
+
+            expect(report.calorieTotal).toEqual(expectedTotals.calories);
+            expect(report.totalProtein).toEqual(expectedTotals.protein);
+            expect(report.totalCarbs).toEqual(expectedTotals.carbs);
+            expect(report.totalFat).toEqual(expectedTotals.fat);
           });
-
-        //Create 4 Balance Factors, 1 Exercise Type Associated with the account
-        //Get Daily report associated with previously specified date and account
-
-        // const accountUpdateRequest: AccountUpdateRequestData = {
-        //   id: accountCreateResult.unwrap().id,
-        //   name: 'Bulgarian Split Squat',
-        //   type: 'Strength',
-        //   body_part: 'Quads',
-        // };
-
-        // await accountRepository.update(accountUpdateRequest);
-
-        // const postUpdateAccount = await prisma.account.findUnique({
-        //   where: {
-        //     id: accountCreateResult.unwrap().id,
-        //   },
-        // });
-
-        // expect(postUpdateAccount.id).toEqual(accountCreateResult.unwrap().id);
-        // expect(postUpdateAccount.name).toEqual('Bulgarian Split Squat');
-        // expect(postUpdateAccount.type).toEqual('Strength');
-        // expect(postUpdateAccount.body_part).toEqual('Quads');
       });
     });
   });

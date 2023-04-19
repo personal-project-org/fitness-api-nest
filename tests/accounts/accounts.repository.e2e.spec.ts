@@ -73,6 +73,7 @@ describe('AccountRepository', () => {
         ).unwrap();
 
         const accountId = accountCreateResult.id;
+        const date = new Date('2019-01-16T00:00:00.000');
 
         expect(accountCreateResult).toBeTruthy();
 
@@ -80,7 +81,7 @@ describe('AccountRepository', () => {
           [
             {
               accountId: accountId,
-              date: new Date('2019-01-16'),
+              date: date,
               balanceFactorType: 'Food',
               caloriesConsumed: 300,
               protein: 20,
@@ -89,7 +90,7 @@ describe('AccountRepository', () => {
             },
             {
               accountId: accountId,
-              date: new Date('2019-01-16'),
+              date: date,
               balanceFactorType: 'Food',
               caloriesConsumed: 300,
               protein: 80,
@@ -98,7 +99,7 @@ describe('AccountRepository', () => {
             },
             {
               accountId: accountId,
-              date: new Date('2019-01-16'),
+              date: date,
               balanceFactorType: 'Food',
               caloriesConsumed: 300,
               protein: 160,
@@ -107,7 +108,7 @@ describe('AccountRepository', () => {
             },
             {
               accountId: accountId,
-              date: new Date('2019-01-16'),
+              date: date,
               balanceFactorType: 'Exercise',
               caloriesBurned: 200,
               protein: 160,
@@ -151,19 +152,17 @@ describe('AccountRepository', () => {
 
         expect(confirmArr).toHaveLength(4);
 
-        console.log(app.getHttpServer());
+        console.log(JSON.stringify(confirmArr, null, 2));
 
-        return (
-          request(app.getHttpServer())
-            .post('/graphql')
-            .send({
-              query: queryString,
-            })
-            // .expect(200)
-            .then((res) => {
-              console.log(JSON.stringify(res, null, 2));
-            })
-        );
+        return request(app.getHttpServer())
+          .post('/graphql')
+          .send({
+            query: queryString,
+          })
+          .expect(200)
+          .then((res) => {
+            console.log(JSON.stringify(res, null, 2));
+          });
 
         //Create 4 Balance Factors, 1 Exercise Type Associated with the account
         //Get Daily report associated with previously specified date and account

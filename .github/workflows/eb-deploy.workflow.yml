@@ -67,9 +67,9 @@ jobs:
         with:
           aws_access_key: ${{ secrets.ACCESS_KEY_ID }}
           aws_secret_key: ${{ secrets.SECRET_ACCESS_KEY }}
-          application_name: fit-api
-          environment_name: fit-api-env-3
-          region: us-east-1
+          application_name: ${{ secrets.APP_NAME }}
+          environment_name: ${{ secrets.ENV_NAME }}
+          region: ${{ secrets.REGION}}
           version_label: 'e-learn-${{ steps.format-time.outputs.replaced }}'
           deployment_package: deploy.zip
 

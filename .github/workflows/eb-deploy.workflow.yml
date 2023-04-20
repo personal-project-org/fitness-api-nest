@@ -39,6 +39,9 @@ jobs:
       - name: Installing NPM
         run: npm install --legacy-peer-deps
 
+      - name: Unit and E2E Tests
+        run: npm test
+
       # Linting Too Strict - Removed
       # - name: Linting check
       #   run: npm run lint

@@ -39,7 +39,7 @@ jobs:
         run: npm install --legacy-peer-deps
 
       - name: Build test container
-        run: docker-compose up test-db-service -d
+        run: docker-compose up test-db-service
 
       - name: Unit and E2E Tests
         run: npm run test:pipeline

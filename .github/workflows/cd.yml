@@ -46,9 +46,9 @@ jobs:
       - name: Unit and E2E Tests
         run: npm run test:pipeline
 
-      # Linting Too Strict - Removed
-      # - name: Linting check
-      #   run: npm run lint
+      Linting Too Strict - Removed
+      - name: Linting check
+        run: npm run lint
 
       - name: Building application
         run: npm run build

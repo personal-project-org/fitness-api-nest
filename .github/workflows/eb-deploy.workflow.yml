@@ -38,8 +38,11 @@ jobs:
       - name: Installing NPM
         run: npm install --legacy-peer-deps
 
+      - name: Build test container
+        run: docker-compose up test-db-service -d
+
       - name: Unit and E2E Tests
-        run: npm test
+        run: npm run test:pipeline
 
       # Linting Too Strict - Removed
       # - name: Linting check

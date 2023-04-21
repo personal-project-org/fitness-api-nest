@@ -1,7 +1,3 @@
-permissions:
-  id-token: write
-  contents: read
-
 name: eb-deploy-workflow
 
 on:
@@ -15,7 +11,6 @@ on:
 jobs:
   ci:
     runs-on: ${{ matrix.os }}
-
     strategy:
       matrix:
         os: [ubuntu-latest]
@@ -24,12 +19,6 @@ jobs:
       NODE_ENV: 'development'
 
     steps:
-      - name: configure aws credentials
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          role-to-assume: ${{ secrets.AWS_ROLE }}
-          role-duration-seconds: 900 # the ttl of the session, in seconds.
-          aws-region: ${{ secrets.REGION }} # use your region here.
       - name: Checkout 🛎
         uses: actions/checkout@master
 

@@ -1,4 +1,4 @@
-name: eb-deploy-workflow
+name: ci
 
 on:
   push:

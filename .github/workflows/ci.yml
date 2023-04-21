@@ -1,4 +1,4 @@
-name: eb-deploy-workflow
+name: ci
 
 on:
   push:
@@ -15,6 +15,12 @@ jobs:
       matrix:
         os: [ubuntu-latest]
         node: [14]
+    services:
+      postgres:
+        image: postgres:11-alpine
+        env:
+          POSTGRES_PASSWORD: ${{ secrets.CI_POSTGRES_PASSWORD }}
+          POSTGRES_DB: fitness-api-db
     env:
       NODE_ENV: 'development'
 
@@ -37,9 +43,6 @@ jobs:
 
       - name: Installing NPM
         run: npm install --legacy-peer-deps
-
-      - name: Build test container
-        run: docker-compose up test-db-service
 
       - name: Unit and E2E Tests
         run: npm run test:pipeline

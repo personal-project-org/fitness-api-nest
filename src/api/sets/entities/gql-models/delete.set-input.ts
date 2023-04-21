@@ -3,7 +3,7 @@ import { IsArray, IsNotEmpty } from 'class-validator';
 
 @InputType()
 export class DeleteSetInput {
-  @Field((_type) => [String])
+  @Field(() => [String])
   @IsArray()
   @IsNotEmpty()
   ids: string[];

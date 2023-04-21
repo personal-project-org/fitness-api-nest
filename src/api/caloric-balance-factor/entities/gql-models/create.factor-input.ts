@@ -3,7 +3,6 @@ import {
   IsDate,
   IsEnum,
   IsInt,
-  IsJSON,
   IsNotEmpty,
   IsString,
   ValidateIf,
@@ -17,7 +16,7 @@ export class CreateCaloricBalanceFactorInput {
   @IsNotEmpty()
   accountId: string;
 
-  @Field((_type) => String, { nullable: true })
+  @Field(() => String, { nullable: true })
   @ValidateIf((input) => input.exerciseId == undefined)
   @IsString()
   exerciseId?: string;
@@ -32,42 +31,33 @@ export class CreateCaloricBalanceFactorInput {
   @IsNotEmpty()
   balanceFactorType: string;
 
-  @Field((_type) => Number, { nullable: true })
+  @Field(() => Number, { nullable: true })
   @ValidateIf((input) => input.caloriesBurned !== undefined)
   @IsInt()
   @IsNotEmpty()
   caloriesBurned?: number;
 
-  @Field((_type) => Number, { nullable: true })
+  @Field(() => Number, { nullable: true })
   @ValidateIf((input) => input.caloriesConsumed !== undefined)
   @IsInt()
   @IsNotEmpty()
   caloriesConsumed?: number;
 
-  @Field((_type) => Number, { nullable: true })
+  @Field(() => Number, { nullable: true })
   @ValidateIf((input) => input.protein !== undefined)
   @IsInt()
   @IsNotEmpty()
   protein?: number;
 
-  @Field((_type) => Number, { nullable: true })
+  @Field(() => Number, { nullable: true })
   @ValidateIf((input) => input.carbs !== undefined)
   @IsInt()
   @IsNotEmpty()
   carbs?: number;
 
-  @Field((_type) => Number, { nullable: true })
+  @Field(() => Number, { nullable: true })
   @ValidateIf((input) => input.fat !== undefined)
   @IsInt()
   @IsNotEmpty()
   fat: number;
-
-  //For if a food or exercise is deleted
-  //   @Field()
-  //   @IsJSON()
-  //   foodDetails: JSON;
-
-  //   @Field()
-  //   @IsJSON()
-  //   exerciseDetails: JSON;
 }

@@ -9,5 +9,5 @@ export class UpdateCaloricBalanceFactorHandler
   constructor(
     private readonly caloricBalanceFactorRepository: CaloricBalanceFactorRepository,
   ) {}
-  async execute(command: UpdateCaloricBalanceFactorCommand): Promise<any> {}
+  async execute(): Promise<any> {}
 }

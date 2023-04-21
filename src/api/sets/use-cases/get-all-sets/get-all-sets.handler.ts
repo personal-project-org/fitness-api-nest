@@ -1,4 +1,3 @@
-import { SetQueryCommand } from '../../shared/set-query.command';
 import { SetRepository } from '../../repository/set.repository';
 import { GetAllSetsCommand } from './get-all-sets.command';
 import { QueryHandler } from '@nestjs/cqrs';
@@ -7,7 +6,7 @@ import { QueryHandler } from '@nestjs/cqrs';
 export class GetAllSetsHandler {
   constructor(private readonly setRepository: SetRepository) {}
 
-  async execute(query: GetAllSetsCommand): Promise<any> {
+  async execute(): Promise<any> {
     const getAllSetsResult = await this.setRepository.getAllSets();
     return getAllSetsResult.map(
       (allFood) => allFood,

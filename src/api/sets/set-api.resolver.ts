@@ -12,7 +12,6 @@ import {
 import { Set } from './entities/local-model/set.entity';
 import { mapDomainEntityToGqlObjectType } from './entities/gql-models/mapper';
 import {
-  Get,
   InternalServerErrorException,
   NotFoundException,
 } from '@nestjs/common';
@@ -25,14 +24,14 @@ import { DeleteSetCommand } from './use-cases/delete/delete-set.command';
 import { SetDeleteErrorResponse } from './use-cases/delete/delete-set.handler';
 import { DeleteSetInput } from './entities/gql-models/delete.set-input';
 
-@Resolver((_of) => SetObjectType)
+@Resolver(() => SetObjectType)
 export class SetResolver {
   constructor(
     private readonly commandBus: CommandBus,
     private readonly queryBus: QueryBus,
   ) {}
 
-  @Mutation((_returns) => SetObjectType, {
+  @Mutation(() => SetObjectType, {
     name: 'createSet',
     description: 'Logs a new set of any given exercise.',
   })
@@ -72,7 +71,7 @@ export class SetResolver {
       .unwrap();
   }
 
-  @Query((_returns) => [SetObjectType], { name: 'getAllSets' })
+  @Query(() => [SetObjectType], { name: 'getAllSets' })
   async getAllSets(): Promise<SetObjectType[]> {
     const result = await this.queryBus.execute<
       GetAllSetsCommand,
@@ -91,7 +90,7 @@ export class SetResolver {
       .unwrap();
   }
 
-  @Mutation((_returns) => SetObjectType, { name: 'updateSet' })
+  @Mutation(() => SetObjectType, { name: 'updateSet' })
   async updateSet(
     @Args('input') input: UpdateSetInput,
   ): Promise<SetObjectType> {
@@ -120,7 +119,7 @@ export class SetResolver {
       .unwrap();
   }
 
-  @Mutation((_returns) => Number, { name: 'deleteSets' })
+  @Mutation(() => Number, { name: 'deleteSets' })
   async deleteSets(@Args('input') input: DeleteSetInput): Promise<number> {
     const deletedSet = await this.commandBus.execute<
       DeleteSetCommand,

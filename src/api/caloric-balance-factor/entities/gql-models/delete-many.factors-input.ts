@@ -11,11 +11,11 @@ import { BalanceFactorType } from '../local-model/factor.entity';
 
 @InputType()
 export class DeleteCaloricBalanceFactorsInput {
-  @Field((_type) => String)
+  @Field(() => String)
   @IsString()
   accountId: string;
 
-  @Field((_type) => [String], { nullable: true })
+  @Field(() => [String], { nullable: true })
   @IsArray()
   ids: string[];
 

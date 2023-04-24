@@ -51,3 +51,9 @@ jobs:
 
       - name: Building application
         run: npm run build
+
+      - name: Send GitHub Action trigger data to Slack workflow
+        id: slack
+        uses: slackapi/slack-github-action@v1.23.0
+        env:
+          SLACK_WEBHOOK_URL: https://hooks.slack.com/workflows/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

@@ -87,6 +87,15 @@ jobs:
         uses: slackapi/slack-github-action@v1.23.0
         env:
           SLACK_WEBHOOK_URL: https://hooks.slack.com/workflows/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
+        payload: |
+          {
+            "author":  "${{ github.event.pusher.name }}",
+            "commitHash": "${{ github.sha }}",
+            "env": "${{env.GITHUB_ENV}}",
+            "linkToBuild": "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}",
+            "linkToCommit": "${{ github.event.pull_request.html_url || github.event.head_commit.url }}",
+            "status": "${{ job.status == 'success' && '✅ Success' || '❌ Failure'}}"
+          }
 
       - name: Deployed!
         run: echo App deployed to ELB

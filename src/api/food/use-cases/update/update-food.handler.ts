@@ -3,7 +3,6 @@ import {
   FoodRepository,
   FoodUpdateRequestData,
 } from '../../repository/food.repository';
-import { RepositoryCreationError } from '../create/create-food.handler';
 import { UpdateFoodCommand } from './update-food.command';
 import { Result } from '@badrap/result';
 

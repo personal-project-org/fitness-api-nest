@@ -4,18 +4,17 @@ import {
   IsDate,
   IsEnum,
   IsNotEmpty,
-  IsString,
   ValidateIf,
 } from 'class-validator';
 import { BalanceFactorType } from '../local-model/factor.entity';
 
 @InputType()
 export class GetManyCaloricBalanceFactorsInput {
-  @Field((_type) => String)
+  @Field(() => String)
   @IsArray()
   accountId: string;
 
-  @Field((_type) => String, { nullable: true })
+  @Field(() => String, { nullable: true })
   @IsArray()
   exerciseId?: string;
 

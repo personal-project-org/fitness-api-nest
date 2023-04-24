@@ -14,18 +14,18 @@ export class UpdateSetInput {
   @IsNotEmpty()
   id: string;
 
-  @Field((_type) => Number, { nullable: true })
+  @Field(() => Number, { nullable: true })
   @ValidateIf((input) => input.reps !== undefined)
   @IsNumber()
   @IsNotEmpty()
   reps: number;
 
-  @Field((_type) => Number, { nullable: true })
+  @Field(() => Number, { nullable: true })
   @ValidateIf((input) => input.weight !== undefined)
   @IsNumber()
   weight: number;
 
-  @Field((_type) => Date, { nullable: true })
+  @Field(() => Date, { nullable: true })
   @ValidateIf((input) => input.date !== undefined)
   @IsDate()
   @IsNotEmpty()

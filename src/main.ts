@@ -5,7 +5,6 @@ import { ValidationPipe } from '@nestjs/common';
 import { PrismaService } from './infrastructure/prisma/prisma.service';
 
 async function bootstrap() {
-  require('dotenv').config();
   const app = await NestFactory.create(AppModule, {
     logger: ['debug'],
     cors: true,

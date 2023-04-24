@@ -28,12 +28,12 @@ jobs:
         uses: actions/checkout@master
 
       - name: Setup node env 🏗
-        uses: actions/setup-node@v2.1.2
+        uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node }}
 
       - name: Cache node_modules 📦
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: ~/.npm
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
@@ -46,9 +46,24 @@ jobs:
       - name: Unit and E2E Tests
         run: npm run test:pipeline
 
-      # Linting Too Strict - Removed
-      # - name: Linting check
-      #   run: npm run lint
+      - name: Linting check
+        run: npm run lint
 
       - name: Building application
         run: npm run build
+
+      - name: Send GitHub Action trigger data to Slack workflow
+        id: slack
+        uses: slackapi/slack-github-action@v1.23.0
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        with:
+          payload: |
+            {
+              "author":  "${{ github.event.pusher.name }}",
+              "commitHash": "${{ github.sha }}",
+              "env": "${{env.GITHUB_ENV}}",
+              "linkToBuild": "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}",
+              "linkToCommit": "${{ github.event.pull_request.html_url || github.event.head_commit.url }}",
+              "status": "${{ job.status == 'success' && '✅ Success' || '❌ Failure'}}"
+            }

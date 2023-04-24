@@ -21,14 +21,14 @@ import { UpdateExerciseCommand } from './use-cases/update/update-exercise.comman
 import { ExerciseUpdateErrorResponse } from './use-cases/update/update-exercise.handler';
 import { NoRecordAvailable } from './use-cases/update/update-exercise.handler';
 
-@Resolver((_of) => ExerciseObjectType)
+@Resolver(() => ExerciseObjectType)
 export class ExerciseResolver {
   constructor(
     private readonly commandBus: CommandBus,
     private readonly queryBus: QueryBus,
   ) {}
 
-  @Query((_returns) => [ExerciseObjectType], { name: 'getAllExercises' })
+  @Query(() => [ExerciseObjectType], { name: 'getAllExercises' })
   async getAllExercises(): Promise<ExerciseObjectType[]> {
     const result = await this.queryBus.execute<
       GetAllExerciseCommand,
@@ -48,7 +48,7 @@ export class ExerciseResolver {
       .unwrap();
   }
 
-  @Mutation((_returns) => Number, {
+  @Mutation(() => Number, {
     name: 'deleteExercises',
     description: 'Removes many exercises given an array of ids.',
   })
@@ -67,7 +67,7 @@ export class ExerciseResolver {
       .unwrap();
   }
 
-  @Mutation((_returns) => ExerciseObjectType, {
+  @Mutation(() => ExerciseObjectType, {
     name: 'updateExercise',
     description: 'Updates an exercise.',
   })
@@ -101,7 +101,7 @@ export class ExerciseResolver {
       .unwrap();
   }
 
-  @Mutation((_returns) => ExerciseObjectType, {
+  @Mutation(() => ExerciseObjectType, {
     name: 'createExercise',
     description: 'Creates a new exercise.',
   })
@@ -116,7 +116,7 @@ export class ExerciseResolver {
     return result
       .map(
         (exercise) => mapDomainEntityToGqlObjectType(exercise),
-        (err) => {
+        () => {
           return new InternalServerErrorException();
         },
       )

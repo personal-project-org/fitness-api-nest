@@ -9,9 +9,7 @@ export class GetAllExerciseHandler
   implements IQueryHandler<GetAllExerciseCommand>
 {
   constructor(private readonly exerciseRepository: ExerciseRepository) {}
-  async execute(
-    command: GetAllExerciseCommand,
-  ): Promise<Result<Exercise[], GetAllRepositoryError>> {
+  async execute(): Promise<Result<Exercise[], GetAllRepositoryError>> {
     const getAllExerciseResult =
       await this.exerciseRepository.getAllExercises();
 

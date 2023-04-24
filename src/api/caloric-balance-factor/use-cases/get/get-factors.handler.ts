@@ -1,5 +1,4 @@
 import { QueryHandler, IQueryHandler } from '@nestjs/cqrs';
-import { Result } from '@badrap/result';
 import { GetCaloricBalanceFactorsCommand } from './get-factors.command';
 import { CaloricBalanceFactorRepository } from '../../repository/factor.repository';
 import { mapDbEntityToDomainEntity } from '../../repository/mapper';

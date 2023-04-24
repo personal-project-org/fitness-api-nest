@@ -1,5 +1,4 @@
 import { QueryHandler, IQueryHandler } from '@nestjs/cqrs';
-import { Result } from '@badrap/result';
 import { GetAllCaloricBalanceFactorsCommand } from './get-all-factors.command';
 import { CaloricBalanceFactorRepository } from '../../repository/factor.repository';
 
@@ -10,5 +9,5 @@ export class GetAllCaloricBalanceFactorsHandler
   constructor(
     private readonly caloricBalanceFactorRepository: CaloricBalanceFactorRepository,
   ) {}
-  async execute(command: GetAllCaloricBalanceFactorsCommand): Promise<any> {}
+  async execute(): Promise<any> {}
 }

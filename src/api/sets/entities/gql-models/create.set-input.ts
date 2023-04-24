@@ -14,7 +14,7 @@ export class CreateSetInput {
   @IsNotEmpty()
   reps: number;
 
-  @Field((_type) => Number, { nullable: true })
+  @Field(() => Number, { nullable: true })
   @ValidateIf((input) => input.weight !== undefined)
   @IsNumber()
   weight: number;

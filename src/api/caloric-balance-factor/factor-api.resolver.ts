@@ -6,7 +6,6 @@ import {
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { CaloricBalanceFactor } from '@prisma/client';
-import { isInstance } from 'class-validator';
 import { CreateCaloricBalanceFactorInput } from './entities/gql-models/create.factor-input';
 import { DeleteCaloricBalanceFactorsInput } from './entities/gql-models/delete-many.factors-input';
 import { CaloricBalanceFactorObjectType } from './entities/gql-models/factor.object-type';
@@ -22,7 +21,7 @@ import {
 } from './use-cases/delete/delete-factor.handler';
 import { GetCaloricBalanceFactorsCommand } from './use-cases/get/get-factors.command';
 
-@Resolver((_of) => CaloricBalanceFactorObjectType)
+@Resolver(() => CaloricBalanceFactorObjectType)
 export class CaloricBalanceFactorResolver {
   constructor(
     private readonly commandBus: CommandBus,
@@ -76,7 +75,7 @@ export class CaloricBalanceFactorResolver {
   //       .unwrap();
   //   }
 
-  @Mutation((_returns) => CaloricBalanceFactorObjectType, {
+  @Mutation(() => CaloricBalanceFactorObjectType, {
     name: 'createCaloricBalanceFactor',
     description: 'Creates a new caloricBalanceFactor.',
   })
@@ -104,14 +103,14 @@ export class CaloricBalanceFactorResolver {
       .map(
         (caloricBalanceFactor) =>
           mapDomainEntityToGqlObjectType(caloricBalanceFactor),
-        (err) => {
+        () => {
           return new InternalServerErrorException();
         },
       )
       .unwrap();
   }
 
-  @Query((_returns) => [CaloricBalanceFactorObjectType], {
+  @Query(() => [CaloricBalanceFactorObjectType], {
     name: 'getCaloricBalanceFactors',
     description: 'Get caloric balance factors from specified date.',
   })
@@ -134,7 +133,7 @@ export class CaloricBalanceFactorResolver {
       .unwrap();
   }
 
-  @Mutation((_returns) => Number, {
+  @Mutation(() => Number, {
     name: 'deleteCaloricBalanceFactors',
     description:
       'Removes many caloricBalanceFactors that match a specified criteria.',

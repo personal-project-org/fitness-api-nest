@@ -20,14 +20,14 @@ import { UpdateFoodInput } from './entities/gql-models/update.food-input';
 import { GetAllFoodErrorResponse } from './use-cases/get-all-foods/get-all.handler';
 import { NoRecordAvailable } from './use-cases/update/update-food.handler';
 
-@Resolver((_of) => FoodObjectType)
+@Resolver(() => FoodObjectType)
 export class FoodResolver {
   constructor(
     private readonly commandBus: CommandBus,
     private readonly queryBus: QueryBus,
   ) {}
 
-  @Query((_returns) => [FoodObjectType], {
+  @Query(() => [FoodObjectType], {
     name: 'getAllFoods',
   })
   async getAllFoods(): Promise<FoodObjectType[]> {
@@ -43,7 +43,7 @@ export class FoodResolver {
       .unwrap();
   }
 
-  @Mutation((_returns) => FoodObjectType, {
+  @Mutation(() => FoodObjectType, {
     name: 'createFood',
     description: 'Logs a new food.',
   })
@@ -66,14 +66,14 @@ export class FoodResolver {
     return result
       .map(
         (food) => mapDomainEntityToGqlObjectType(food),
-        (err) => {
+        () => {
           return new InternalServerErrorException();
         },
       )
       .unwrap();
   }
 
-  @Mutation((_returns) => Number, {
+  @Mutation(() => Number, {
     name: 'deleteFoods',
     description: 'Removes foods given an array of ids.',
   })
@@ -90,7 +90,7 @@ export class FoodResolver {
       .unwrap();
   }
 
-  @Mutation((_returns) => FoodObjectType, {
+  @Mutation(() => FoodObjectType, {
     name: 'updateFood',
     description: 'Removes foods given an array of ids.',
   })
